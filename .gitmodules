@@ -1,0 +1,3 @@
+[submodule "node_modules/nan"]
+	path = node_modules/nan
+	url = https://github.com/nodejs/nan

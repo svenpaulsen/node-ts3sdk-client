@@ -1,0 +1,13 @@
+{
+  "name": "node-ts3sdk-client",
+  "version": "3.0.3.2",
+  "description": "TeamSpeak 3 SDK Client addon for Node.js",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/svenpaulsen/node-ts3sdk-client.git"
+  },
+  "dependencies": {
+    "nan": "^2.4.0"
+  }
+}
