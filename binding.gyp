@@ -15,7 +15,7 @@
             "<(module_root_dir)/bin/ts3client_win64.dll",
           ],
         }],
-        ["OS==\"win\"", {
+        ["OS==\"win\" and target_arch!=\"x64\"", {
           "libraries": [
             "<(module_root_dir)/bin/ts3client_win32.dll",
           ],
@@ -25,7 +25,7 @@
             "<(module_root_dir)/bin/libts3client_linux_amd64.so",
           ],
         }],
-        ["OS==\"linux\"", {
+        ["OS==\"linux\" and target_arch!=\"x64\"", {
           "libraries": [
             "<(module_root_dir)/bin/libts3client_linux_x86.so",
           ],
