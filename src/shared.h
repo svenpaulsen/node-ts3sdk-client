@@ -15,6 +15,7 @@
 using namespace std;
 
 #include <nan.h>
+#include <stdarg.h>
 #include <pthread.h>
 #include <teamspeak/clientlib.h>
 #include <teamspeak/public_errors.h>
