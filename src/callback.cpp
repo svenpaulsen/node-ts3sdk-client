@@ -71,6 +71,18 @@ Callback::Callback(const char* name, const char* frmt, ...)
 }
 
 /**
+ * The Callback object destructor.
+ */
+Callback::~Callback()
+{
+    for(int i = 0; i < (int) m_args.size(); ++i)
+    {
+        free(m_args[i]->data);
+        free(m_args[i]);
+    }
+}
+
+/**
  * Returns the underlying event name.
  */
 string Callback::getName()

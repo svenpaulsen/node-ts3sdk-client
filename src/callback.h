@@ -23,6 +23,7 @@ class Callback
     
 public:
     Callback(const char* func, const char* frmt, ...);
+    ~Callback();
     
     string getName();
     string getFormat();
