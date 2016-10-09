@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_CONNECTION_H
 #define ADDON_CONNECTION_H
-
-#include "shared.h"
 
 class Connection : public Nan::ObjectWrap
 {
@@ -17,6 +17,7 @@ public:
     static NAN_METHOD(Start);
     static NAN_METHOD(Stop);
     static NAN_METHOD(GetList);
+    static NAN_METHOD(GetStatus);
     static NAN_METHOD(GetInfoVarAsUInt64);
     static NAN_METHOD(GetInfoVarAsDouble);
     static NAN_METHOD(GetInfoVarAsString);

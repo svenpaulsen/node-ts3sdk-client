@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_LOG_H
 #define ADDON_LOG_H
-
-#include "shared.h"
 
 class Log : public Nan::ObjectWrap
 {

@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_ARGUMENT_H
 #define ADDON_ARGUMENT_H
-
-#include "shared.h"
 
 class Argument
 {

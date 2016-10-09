@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_EVENT_H
 #define ADDON_EVENT_H
-
-#include "shared.h"
 
 class Event
 {

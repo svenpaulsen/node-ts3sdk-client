@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_ERROR_H
 #define ADDON_ERROR_H
-
-#include "shared.h"
 
 class Error : public Nan::ObjectWrap
 {

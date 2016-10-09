@@ -7,7 +7,9 @@
 #include "event.h"
 
 void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error)
-{}
+{
+    eventQueue.add(new Callback(__FUNCTION__, "6iI", scHandlerID, status, error));
+}
 
 void Event::onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion)
 {}

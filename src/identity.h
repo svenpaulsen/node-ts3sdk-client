@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "shared.h"
+
 #ifndef ADDON_IDENTITY_H
 #define ADDON_IDENTITY_H
-
-#include "shared.h"
 
 class Identity : public Nan::ObjectWrap
 {

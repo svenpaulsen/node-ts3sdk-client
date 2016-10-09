@@ -7,3 +7,4 @@
 #include "shared.h"
 
 struct ClientUIFunctions clientSDK;
+Queue<Callback*>         eventQueue;
