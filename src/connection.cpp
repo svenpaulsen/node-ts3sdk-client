@@ -74,7 +74,7 @@ NAN_METHOD(Connection::Start)
     char*         channelPwd;
     char*         serverPwd;
     
-    if((error = Argument::num(info, 2, 8)) != ERROR_ok)
+    if((error = Argument::num(info, 3, 8)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
@@ -89,7 +89,7 @@ NAN_METHOD(Connection::Start)
         return Error::throwException(error);
     }
     
-    if((error = Argument::get(info, 2, &host, "localhost")) != ERROR_ok)
+    if((error = Argument::get(info, 2, &host, "")) != ERROR_ok)
     {
         return Error::throwException(error);
     }
@@ -151,7 +151,7 @@ NAN_METHOD(Connection::Stop)
         return Error::throwException(error);
     }
     
-    if((error = Argument::get(info, 1, &quitMessage, "leaving")) != ERROR_ok)
+    if((error = Argument::get(info, 1, &quitMessage, "")) != ERROR_ok)
     {
         return Error::throwException(error);
     }
