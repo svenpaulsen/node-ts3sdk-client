@@ -12,9 +12,15 @@
 
 class Event
 {
+    static std::map<std::string, Nan::Callback*> m_pool;
+    
     static void emit(Payload* p);
+    static void exec(uv_async_t* handle, int status);
+    static void done(uv_handle_t* handle);
     
 public:
+    static NAN_METHOD(On);
+    
     static void onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error);
     static void onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion);
     static void onNewChannelEvent(uint64 scHandlerID, uint64 channelID, uint64 channelPID);

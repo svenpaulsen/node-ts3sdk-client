@@ -4,11 +4,115 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+#include "argument.h"
 #include "event.h"
+#include "error.h"
+
+std::map<std::string, Nan::Callback*> Event::m_pool;
 
 void Event::emit(Payload* p)
 {
+    auto func = m_pool.find(p->getName());
     
+    if(func != m_pool.end())
+    {
+        auto handle = new uv_async_t();
+        
+        handle->data = (void*) p;
+        
+        uv_async_init(uv_default_loop(), handle, (uv_async_cb) exec);
+        uv_async_send(handle);
+    }
+}
+
+void Event::exec(uv_async_t* handle, int status)
+{
+    Payload* p = (Payload*) handle->data;
+    
+    auto func = m_pool.find(p->getName());
+    
+    if(func != m_pool.end())
+    {
+        Nan::HandleScope scope;
+        Nan::TryCatch    trycatch;
+        
+        v8::Handle<v8::Value>* args = (v8::Handle<v8::Value>*) malloc(sizeof(v8::Handle<v8::Value>)*p->getLength());
+        
+        for(unsigned int i = 0; i < p->getLength(); ++i)
+        {
+            switch(p->getFormat()[i])
+            {
+                case '6':
+                    args[i] = Nan::New<v8::Number>(p->getArgument<uint64>(i));
+                    break;
+                    
+                case 'I':
+                    args[i] = Nan::New<v8::Number>(p->getArgument<unsigned int>(i));
+                    break;
+                    
+                case 'i':
+                    args[i] = Nan::New<v8::Number>(p->getArgument<int>(i));
+                    break;
+                    
+                case 'f':
+                    args[i] = Nan::New<v8::Number>(p->getArgument<double>(i));
+                    break;
+                    
+                case 's':
+                    if(!p->getArgument<char*>(i))
+                    {
+                        args[i] = Nan::Undefined();
+                    }
+                    else
+                    {
+                        args[i] = Nan::New(p->getArgument<char*>(i)).ToLocalChecked();
+                    }
+                    break;
+                    
+                default:
+                    args[i] = Nan::Undefined();
+                    break;
+            }
+        }
+        
+        func->second->Call(p->getLength(), args);
+        
+        if(trycatch.HasCaught())
+        {
+            Nan::FatalException(trycatch);
+        }
+        
+        free(args);
+    }
+
+    uv_close((uv_handle_t*) handle, done);
+}
+
+void Event::done(uv_handle_t* handle)
+{
+    Payload* p = (Payload*) handle->data;
+    
+    delete p;
+    delete (uv_async_t*) handle;
+}
+
+NAN_METHOD(Event::On)
+{
+    unsigned int error;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if(!info[0]->IsString() || !info[1]->IsFunction())
+    {
+        return Error::throwException(ERROR_parameter_invalid);
+    }
+    
+    Nan::Callback* callback = new Nan::Callback(v8::Local<v8::Function>::Cast(info[1]));
+    
+    m_pool[std::string(*Nan::Utf8String(info[0]->ToString()))] = callback;
 }
 
 void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error)

@@ -11,8 +11,8 @@
  */
 Payload::Payload(const char* name, const char* frmt, ...)
 {
-    std::string m_name(name);
-    std::string m_frmt(frmt);
+    m_name = name;
+    m_frmt = frmt;
     
     uint64       arg_6;
     unsigned int arg_I;
@@ -20,12 +20,12 @@ Payload::Payload(const char* name, const char* frmt, ...)
     double       arg_f;
     char*        arg_s;
     
-    if(m_name.length())
+    if(m_frmt.length())
     {
         va_list vl;
         va_start(vl, frmt);
         
-        for(unsigned int i = 0; i < m_name.length(); ++i)
+        for(unsigned int i = 0; i < m_frmt.length(); ++i)
         {
             arg* item = (arg*) malloc(sizeof(arg));
             
@@ -87,7 +87,7 @@ Payload::Payload(const char* name, const char* frmt, ...)
  */
 Payload::~Payload()
 {
-    for(int i = 0; i < (int) m_args.size(); ++i)
+    for(unsigned int i = 0; i < m_args.size(); ++i)
     {
         free(m_args[i]->data);
         free(m_args[i]);
@@ -100,6 +100,47 @@ Payload::~Payload()
 std::string Payload::getName()
 {
     return m_name;
+}
+
+/**
+ * Helper function to return a formatted string representing the underlying event.
+ */
+std::string Payload::getCall()
+{
+    std::string call = m_name + "(";
+    
+    for(unsigned int i = 0; i < m_args.size(); ++i)
+    {
+        if(i) call += ", ";
+        
+        switch(m_args[i]->type)
+        {
+            case '6':
+                call += m_args[i]->size ? std::to_string(getArgument<uint64>(i)) : 0;
+                break;
+                
+            case 'I':
+                call += m_args[i]->size ? std::to_string(getArgument<unsigned int>(i)) : 0;
+                break;
+                
+            case 'i':
+                call += m_args[i]->size ? std::to_string(getArgument<int>(i)) : 0;
+                break;
+                
+            case 'f':
+                call += m_args[i]->size ? std::to_string(getArgument<double>(i)) : 0;
+                break;
+                
+            case 's':
+                call += m_args[i]->size ? "'" + std::string(getArgument<char*>(i)) + "'" : "NULL";
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    return call + ")";
 }
 
 /**

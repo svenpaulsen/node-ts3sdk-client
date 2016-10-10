@@ -2,6 +2,16 @@
   "targets": [
     {
       "target_name": "ts3client",
+      "cflags": [
+        "-std=c++11",
+        "-stdlib=libc++",
+      ],
+      "xcode_settings": {
+        "OTHER_CFLAGS": [
+          "-std=c++11",
+          "-stdlib=libc++",
+        ],
+      },
       "sources": [
         "src/addon.cpp",
         "src/argument.cpp",
@@ -10,6 +20,10 @@
         "src/payload.h",
         "src/capture.cpp",
         "src/capture.h",
+        "src/channel.cpp",
+        "src/channel.h",
+        "src/client.cpp",
+        "src/client.h",
         "src/clientlib.cpp",
         "src/clientlib.h",
         "src/connection.cpp",
@@ -18,12 +32,16 @@
         "src/error.h",
         "src/event.cpp",
         "src/event.h",
+        "src/helper.cpp",
+        "src/helper.h",
         "src/identity.cpp",
         "src/identity.h",
         "src/log.cpp",
         "src/log.h",
         "src/playback.cpp",
         "src/playback.h",
+        "src/server.cpp",
+        "src/server.h",
         "src/shared.cpp",
         "src/shared.h",
       ],

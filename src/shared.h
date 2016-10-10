@@ -7,6 +7,10 @@
 #ifndef ADDON_SHARED_H
 #define ADDON_SHARED_H
 
+#include <map>
+#include <string>
+#include <vector>
+
 #include <nan.h>
 #include <stdarg.h>
 #include <teamspeak/clientlib.h>

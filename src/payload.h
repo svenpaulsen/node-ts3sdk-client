@@ -26,13 +26,14 @@ public:
     ~Payload();
     
     std::string getName();
+    std::string getCall();
     std::string getFormat();
     size_t      getLength();
     
     template<typename T>
     T getArgument(size_t n)
     {
-        if(n >= m_args.size() || !m_args[n])
+        if(n >= m_args.size() || !m_args[n] || !m_args[n]->size)
         {
             return 0;
         }
@@ -45,14 +46,14 @@ private:
 };
 
 template<>
-inline std::string Payload::getArgument(size_t n)
+inline char* Payload::getArgument(size_t n)
 {
-    if(n >= m_args.size() || !m_args[n])
+    if(n >= m_args.size() || !m_args[n] || !m_args[n]->size)
     {
-        return {};
+        return nullptr;
     }
     
-    return std::string(reinterpret_cast<char*>(m_args[n]->data));
+    return reinterpret_cast<char*>(m_args[n]->data);
 }
 
 #endif // ADDON_PAYLOAD_H

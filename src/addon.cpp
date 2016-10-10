@@ -5,12 +5,16 @@
  */
 
 #include "capture.h"
+#include "channel.h"
+#include "client.h"
 #include "clientlib.h"
 #include "connection.h"
 #include "error.h"
+#include "event.h"
 #include "identity.h"
-#include "playback.h"
 #include "log.h"
+#include "playback.h"
+#include "server.h"
 
 /**
  * Initializes the Node.js addon.
@@ -55,12 +59,72 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "getPlaybackDeviceList",            Playback::ListDevices);
     Nan::SetMethod(exports, "getPlaybackModeList",              Playback::ListModes);
     
+    // client
+    Nan::SetMethod(exports, "getClientID",                   Client::GetOwnID);
+    Nan::SetMethod(exports, "getClientSelfVariableAsInt",    Client::GetOwnVarAsInt);
+    Nan::SetMethod(exports, "getClientSelfVariableAsString", Client::GetOwnVarAsString);
+    Nan::SetMethod(exports, "setClientSelfVariableAsInt",    Client::SetOwnVarAsInt);
+    Nan::SetMethod(exports, "setClientSelfVariableAsString", Client::SetOwnVarAsString);
+    Nan::SetMethod(exports, "getClientList",                 Client::GetList);
+    Nan::SetMethod(exports, "requestClientIDs",              Client::GetClones);
+    Nan::SetMethod(exports, "getChannelOfClient",            Client::GetChannelID);
+    Nan::SetMethod(exports, "requestConnectionInfo",         Client::GetConectionInfo);
+    Nan::SetMethod(exports, "requestClientVariables",        Client::GetVars);
+    Nan::SetMethod(exports, "getClientVariableAsInt",        Client::GetVarAsInt);
+    Nan::SetMethod(exports, "getClientVariableAsUInt64",     Client::GetVarAsUInt64);
+    Nan::SetMethod(exports, "getClientVariableAsString",     Client::GetVarAsString);
+    Nan::SetMethod(exports, "flushClientSelfUpdates",        Client::FlushUpdates);
+    Nan::SetMethod(exports, "requestMuteClients",            Client::Mute);
+    Nan::SetMethod(exports, "requestUnmuteClients",          Client::Unmute);
+    Nan::SetMethod(exports, "requestClientMove",             Client::Move);
+    Nan::SetMethod(exports, "requestClientKickFromChannel",  Client::KickFromChannel);
+    Nan::SetMethod(exports, "requestClientKickFromServer",   Client::KickFromServer);
+    Nan::SetMethod(exports, "requestSendPrivateTextMsg",     Client::SendMessage);
+    
+    // channel
+    Nan::SetMethod(exports, "getChannelList",               Channel::GetList);
+    Nan::SetMethod(exports, "getChannelClientList",         Channel::GetClients);
+    Nan::SetMethod(exports, "getChannelIDFromChannelNames", Channel::GetID);
+    Nan::SetMethod(exports, "getParentChannelOfChannel",    Channel::GetPID);
+    Nan::SetMethod(exports, "getChannelEmptySecs",          Channel::GetSecondsEmpty);
+    Nan::SetMethod(exports, "requestChannelDescription",    Channel::GetDescription);
+    Nan::SetMethod(exports, "getChannelVariableAsInt",      Channel::GetVarAsInt);
+    Nan::SetMethod(exports, "getChannelVariableAsUInt64",   Channel::GetVarAsUInt64);
+    Nan::SetMethod(exports, "getChannelVariableAsString",   Channel::GetVarAsString);
+    Nan::SetMethod(exports, "setChannelVariableAsInt",      Channel::SetVarAsInt);
+    Nan::SetMethod(exports, "setChannelVariableAsUInt64",   Channel::SetVarAsUInt64);
+    Nan::SetMethod(exports, "setChannelVariableAsString",   Channel::SetVarAsString);
+    Nan::SetMethod(exports, "flushChannelCreation",         Channel::FlushCreation);
+    Nan::SetMethod(exports, "flushChannelUpdates",          Channel::FlushUpdates);
+    Nan::SetMethod(exports, "requestChannelMove",           Channel::Move);
+    Nan::SetMethod(exports, "requestChannelDelete",         Channel::Delete);
+    Nan::SetMethod(exports, "requestChannelSubscribe",      Channel::Subscribe);
+    Nan::SetMethod(exports, "requestChannelUnsubscribe",    Channel::Unsubscribe);
+    Nan::SetMethod(exports, "requestChannelSubscribeAll",   Channel::SubscribeAll);
+    Nan::SetMethod(exports, "requestChannelUnsubscribeAll", Channel::UnsubscribeAll);
+    Nan::SetMethod(exports, "requestSendChannelTextMsg",    Channel::SendMessage);
+    
+    // server
+    Nan::SetMethod(exports, "requestServerConnectionInfo",         Server::GetConectionInfo);
+    Nan::SetMethod(exports, "getServerConnectionVariableAsUInt64", Server::GetConectionVarAsUInt64);
+    Nan::SetMethod(exports, "getServerConnectionVariableAsFloat",  Server::GetConectionVarAsFloat);
+    Nan::SetMethod(exports, "requestServerVariables",              Server::GetVars);
+    Nan::SetMethod(exports, "getServerVariableAsInt",              Server::GetVarAsInt);
+    Nan::SetMethod(exports, "getServerVariableAsUInt64",           Server::GetVarAsUInt64);
+    Nan::SetMethod(exports, "getServerVariableAsString",           Server::GetVarAsString);
+    Nan::SetMethod(exports, "requestSendServerTextMsg",            Server::SendMessage);
+    
     // log
     Nan::SetMethod(exports, "logMessage",      Log::AddMessage);
     Nan::SetMethod(exports, "setLogVerbosity", Log::SetVerbosity);
     
     // error
-    Nan::SetMethod(exports, "getErrorMessage", Error::GetMessage);
+    Nan::SetMethod(exports, "getLastError",        Error::GetLastCode);
+    Nan::SetMethod(exports, "getLastErrorMessage", Error::GetLastMessage);
+    Nan::SetMethod(exports, "getErrorMessage",     Error::GetMessage);
+    
+    // callback
+    Nan::SetMethod(exports, "on", Event::On);
 }
 
 NODE_MODULE(ts3client, Init);
