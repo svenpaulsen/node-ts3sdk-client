@@ -18,7 +18,7 @@ Payload::Payload(const char* name, const char* frmt, ...)
     unsigned int arg_I;
     int          arg_i;
     double       arg_f;
-    std::string  arg_s;
+    char*        arg_s;
     
     if(m_name.length())
     {
@@ -56,8 +56,18 @@ Payload::Payload(const char* name, const char* frmt, ...)
                     break;
                     
                 case 's':
-                    arg_s = std::string(va_arg(vl, char*));
-                    memcpy(item->data, &arg_s, item->size);
+                    arg_s = va_arg(vl, char*);
+                    free(item->data);
+                    if(!arg_s)
+                    {
+                        item->data = nullptr;
+                        item->size = 0;
+                    }
+                    else
+                    {
+                        item->data = (void*) malloc(strlen(arg_s)+1);
+                        strcpy((char*) item->data, arg_s);
+                    }
                     break;
                     
                 default:
@@ -132,7 +142,7 @@ unsigned int Payload::getTypeSize(char type)
             break;
             
         case 's':
-            return sizeof(std::string);
+            return sizeof(char*);
             break;
             
         default:

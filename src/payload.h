@@ -29,8 +29,30 @@ public:
     std::string getFormat();
     size_t      getLength();
     
+    template<typename T>
+    T getArgument(size_t n)
+    {
+        if(n >= m_args.size() || !m_args[n])
+        {
+            return 0;
+        }
+
+        return *reinterpret_cast<T*>(m_args[n]->data);
+    }
+    
 private:
     unsigned int getTypeSize(char type);
 };
+
+template<>
+inline std::string Payload::getArgument(size_t n)
+{
+    if(n >= m_args.size() || !m_args[n])
+    {
+        return {};
+    }
+    
+    return std::string(reinterpret_cast<char*>(m_args[n]->data));
+}
 
 #endif // ADDON_PAYLOAD_H
