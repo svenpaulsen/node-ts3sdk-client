@@ -26,7 +26,6 @@ public:
     ~Payload();
     
     std::string getName();
-    std::string getCall();
     std::string getFormat();
     size_t      getLength();
     

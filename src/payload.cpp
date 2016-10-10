@@ -103,47 +103,6 @@ std::string Payload::getName()
 }
 
 /**
- * Helper function to return a formatted string representing the underlying event.
- */
-std::string Payload::getCall()
-{
-    std::string call = m_name + "(";
-    
-    for(unsigned int i = 0; i < m_args.size(); ++i)
-    {
-        if(i) call += ", ";
-        
-        switch(m_args[i]->type)
-        {
-            case '6':
-                call += m_args[i]->size ? std::to_string(getArgument<uint64>(i)) : 0;
-                break;
-                
-            case 'I':
-                call += m_args[i]->size ? std::to_string(getArgument<unsigned int>(i)) : 0;
-                break;
-                
-            case 'i':
-                call += m_args[i]->size ? std::to_string(getArgument<int>(i)) : 0;
-                break;
-                
-            case 'f':
-                call += m_args[i]->size ? std::to_string(getArgument<double>(i)) : 0;
-                break;
-                
-            case 's':
-                call += m_args[i]->size ? "'" + std::string(getArgument<char*>(i)) + "'" : "NULL";
-                break;
-                
-            default:
-                break;
-        }
-    }
-    
-    return call + ")";
-}
-
-/**
  * Returns the underlying event format.
  */
 std::string Payload::getFormat()

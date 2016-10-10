@@ -2,15 +2,6 @@
   "targets": [
     {
       "target_name": "ts3client",
-      "cflags": [
-        "-std=c++11",
-      ],
-      "xcode_settings": {
-        "OTHER_CFLAGS": [
-          "-std=c++11",
-          "-stdlib=libc++",
-        ],
-      },
       "sources": [
         "src/addon.cpp",
         "src/argument.cpp",
