@@ -122,7 +122,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 /**
  * Fetches a specified argument as array.
  */
-unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, vector<char*> &res, const char* def)
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<char*> &res, const char* def)
 {
     if(!info[arg]->IsUndefined() && !info[arg]->IsArray())
     {

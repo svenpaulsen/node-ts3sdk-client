@@ -64,15 +64,15 @@ NAN_METHOD(Connection::Destroy)
  */
 NAN_METHOD(Connection::Start)
 {
-    unsigned int  error;
-    uint64        scHandlerID;
-    char*         identity;
-    char*         host;
-    unsigned int  port;
-    char*         nickname;
-    vector<char*> channelArr;
-    char*         channelPwd;
-    char*         serverPwd;
+    unsigned int       error;
+    uint64             scHandlerID;
+    char*              identity;
+    char*              host;
+    unsigned int       port;
+    char*              nickname;
+    std::vector<char*> channelArr;
+    char*              channelPwd;
+    char*              serverPwd;
     
     if((error = Argument::num(info, 3, 8)) != ERROR_ok)
     {

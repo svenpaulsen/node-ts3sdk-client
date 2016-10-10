@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "shared.h"
-
 #ifndef ADDON_CLIENTLIB_H
 #define ADDON_CLIENTLIB_H
+
+#include "shared.h"
 
 class ClientLib : public Nan::ObjectWrap
 {

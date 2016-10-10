@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "shared.h"
-
 #ifndef ADDON_ARGUMENT_H
 #define ADDON_ARGUMENT_H
+
+#include "shared.h"
 
 class Argument
 {
@@ -17,7 +17,7 @@ public:
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, unsigned int* res, unsigned int def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, int* res, int def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, char** res, const char* def);
-    static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, vector<char*> &res, const char* def);
+    static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<char*> &res, const char* def);
 };
 
 #endif // ADDON_ARGUMENT_H

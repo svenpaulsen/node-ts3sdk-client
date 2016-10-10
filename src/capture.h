@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "shared.h"
-
 #ifndef ADDON_CAPTURE_H
 #define ADDON_CAPTURE_H
+
+#include "shared.h"
 
 class Capture : public Nan::ObjectWrap
 {

@@ -8,18 +8,18 @@
 #include "error.h"
 
 unsigned int Error::m_lastCode    = ERROR_ok;
-string       Error::m_lastMessage = Error::translateCode(ERROR_ok);
+std::string  Error::m_lastMessage = Error::translateCode(ERROR_ok);
 
 /**
  * Translates a specified error code into an error message.
  */
-string Error::translateCode(unsigned int code)
+std::string Error::translateCode(unsigned int code)
 {
     char* result;
     
     ts3client_getErrorMessage(code, &result);
     
-    string message(result);
+    std::string message(result);
     
     ts3client_freeMemory(result);
     

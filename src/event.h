@@ -4,13 +4,16 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "shared.h"
-
 #ifndef ADDON_EVENT_H
 #define ADDON_EVENT_H
 
+#include "shared.h"
+#include "payload.h"
+
 class Event
 {
+    static void emit(Payload* p);
+    
 public:
     static void onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error);
     static void onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion);

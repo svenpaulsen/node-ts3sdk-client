@@ -4,10 +4,10 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "shared.h"
-
 #ifndef ADDON_CONNECTION_H
 #define ADDON_CONNECTION_H
+
+#include "shared.h"
 
 class Connection : public Nan::ObjectWrap
 {

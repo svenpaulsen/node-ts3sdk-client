@@ -4,21 +4,21 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-#include "callback.h"
+#include "payload.h"
 
 /**
- * The Callback object constructor.
+ * The Payload object constructor.
  */
-Callback::Callback(const char* name, const char* frmt, ...)
+Payload::Payload(const char* name, const char* frmt, ...)
 {
-    string m_name(name);
-    string m_frmt(frmt);
+    std::string m_name(name);
+    std::string m_frmt(frmt);
     
     uint64       arg_6;
     unsigned int arg_I;
     int          arg_i;
     double       arg_f;
-    string       arg_s;
+    std::string  arg_s;
     
     if(m_name.length())
     {
@@ -56,7 +56,7 @@ Callback::Callback(const char* name, const char* frmt, ...)
                     break;
                     
                 case 's':
-                    arg_s = string(va_arg(vl, char*));
+                    arg_s = std::string(va_arg(vl, char*));
                     memcpy(item->data, &arg_s, item->size);
                     break;
                     
@@ -67,13 +67,15 @@ Callback::Callback(const char* name, const char* frmt, ...)
             
             m_args.push_back(item);
         }
+        
+        va_end(vl);
     }
 }
 
 /**
- * The Callback object destructor.
+ * The Payload object destructor.
  */
-Callback::~Callback()
+Payload::~Payload()
 {
     for(int i = 0; i < (int) m_args.size(); ++i)
     {
@@ -85,7 +87,7 @@ Callback::~Callback()
 /**
  * Returns the underlying event name.
  */
-string Callback::getName()
+std::string Payload::getName()
 {
     return m_name;
 }
@@ -93,7 +95,7 @@ string Callback::getName()
 /**
  * Returns the underlying event format.
  */
-string Callback::getFormat()
+std::string Payload::getFormat()
 {
     return m_frmt;
 }
@@ -101,7 +103,7 @@ string Callback::getFormat()
 /**
  * Returns the number of arguments attached.
  */
-size_t Callback::getLength()
+size_t Payload::getLength()
 {
     return m_frmt.length();
 }
@@ -109,7 +111,7 @@ size_t Callback::getLength()
 /**
  * Returns the size for a specified datatype identifier.
  */
-unsigned int Callback::getTypeSize(char type)
+unsigned int Payload::getTypeSize(char type)
 {
     switch(type)
     {
@@ -130,7 +132,7 @@ unsigned int Callback::getTypeSize(char type)
             break;
             
         case 's':
-            return sizeof(string);
+            return sizeof(std::string);
             break;
             
         default:
