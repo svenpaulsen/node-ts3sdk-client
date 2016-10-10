@@ -4,7 +4,6 @@
       "target_name": "ts3client",
       "cflags": [
         "-std=c++11",
-        "-stdlib=libc++",
       ],
       "xcode_settings": {
         "OTHER_CFLAGS": [
