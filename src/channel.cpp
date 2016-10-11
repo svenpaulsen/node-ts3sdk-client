@@ -198,7 +198,7 @@ NAN_METHOD(Channel::GetSecondsEmpty)
         return Error::throwException(error);
     }
     
-    return Error::throwException(ERROR_not_implemented);
+    info.GetReturnValue().Set(Nan::New<v8::Number>(seconds));
 }
 
 /**

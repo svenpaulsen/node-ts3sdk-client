@@ -535,7 +535,36 @@ NAN_METHOD(Client::FlushUpdates)
  */
 NAN_METHOD(Client::Mute)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int       error;
+    uint64             scHandlerID;
+    std::vector<anyID> clients;
+    char*              returnCode;
+    char*              defretCode = Helper::createReturnCode();
+    
+    if((error = Argument::num(info, 2, 3)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 2, &returnCode, defretCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_requestMuteClients(scHandlerID, clients.data(), returnCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
+    
+    free(returnCode);
+    free(defretCode);
 }
 
 /**
@@ -543,7 +572,36 @@ NAN_METHOD(Client::Mute)
  */
 NAN_METHOD(Client::Unmute)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int       error;
+    uint64             scHandlerID;
+    std::vector<anyID> clients;
+    char*              returnCode;
+    char*              defretCode = Helper::createReturnCode();
+    
+    if((error = Argument::num(info, 2, 3)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 2, &returnCode, defretCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_requestUnmuteClients(scHandlerID, clients.data(), returnCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
+    
+    free(returnCode);
+    free(defretCode);
 }
 
 /**

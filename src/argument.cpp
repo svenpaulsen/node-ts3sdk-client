@@ -150,6 +150,36 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 }
 
 /**
+ * Fetches a specified argument as anyID list.
+ */
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<unsigned int> &res, uint64 def)
+{
+    if(!info[arg]->IsUndefined() && !info[arg]->IsArray())
+    {
+        return ERROR_parameter_invalid;
+    }
+    
+    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    
+    for(unsigned int i = 0; i < arr->Length(); i++)
+    {
+        res.push_back(static_cast<unsigned int>(info[arg]->Uint32Value()));
+    }
+    
+    if(res.empty() && def != 0)
+    {
+        res.push_back(def);
+    }
+    
+    if(!res.empty())
+    {
+        res.push_back(0);
+    }
+    
+    return ERROR_ok;
+}
+
+/**
  * Fetches a specified argument as char* array.
  */
 unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<char*> &res, const char* def)
