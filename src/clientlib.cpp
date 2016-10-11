@@ -85,7 +85,7 @@ NAN_METHOD(ClientLib::Init)
     clientSDK.onCustomPacketDecryptEvent              = Event::onCustomPacketDecryptEvent;
     clientSDK.onProvisioningSlotRequestResultEvent    = Event::onProvisioningSlotRequestResultEvent;
     clientSDK.onCheckServerUniqueIdentifierEvent      = Event::onCheckServerUniqueIdentifierEvent;
-    clientSDK.onClientPasswordEncrypt                 = Event::onClientPasswordEncrypt;
+    //clientSDK.onClientPasswordEncrypt                 = Event::onClientPasswordEncrypt;
     clientSDK.onFileTransferStatusEvent               = Event::onFileTransferStatusEvent;
     clientSDK.onFileListEvent                         = Event::onFileListEvent;
     clientSDK.onFileListFinishedEvent                 = Event::onFileListFinishedEvent;

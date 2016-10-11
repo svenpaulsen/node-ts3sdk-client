@@ -122,7 +122,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 /**
  * Fetches a specified argument as uint64 list.
  */
-unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<uint64> &res, uint64 def)
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<uint64> &res, uint64 def)
 {
     if(!info[arg]->IsUndefined() && !info[arg]->IsArray())
     {

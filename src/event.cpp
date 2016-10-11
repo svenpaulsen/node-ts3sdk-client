@@ -49,34 +49,34 @@ void Event::exec(uv_async_t* handle, int status)
             switch(p->getFormat()[i])
             {
                 case '6':
-                    args[i] = Nan::New<v8::Number>(p->getArgument<uint64>(i));
+                    args.push_back(Nan::New<v8::Number>(p->getArgument<uint64>(i)));
                     break;
                     
                 case 'I':
-                    args[i] = Nan::New<v8::Number>(p->getArgument<unsigned int>(i));
+                    args.push_back(Nan::New<v8::Number>(p->getArgument<unsigned int>(i)));
                     break;
                     
                 case 'i':
-                    args[i] = Nan::New<v8::Number>(p->getArgument<int>(i));
+                    args.push_back(Nan::New<v8::Number>(p->getArgument<int>(i)));
                     break;
                     
                 case 'f':
-                    args[i] = Nan::New<v8::Number>(p->getArgument<double>(i));
+                    args.push_back(Nan::New<v8::Number>(p->getArgument<double>(i)));
                     break;
                     
                 case 's':
                     if(!p->getArgument<char*>(i))
                     {
-                        args[i] = Nan::Undefined();
+                        args.push_back(Nan::Undefined());
                     }
                     else
                     {
-                        args[i] = Nan::New(p->getArgument<char*>(i)).ToLocalChecked();
+                        args.push_back(Nan::New(p->getArgument<char*>(i)).ToLocalChecked());
                     }
                     break;
                     
                 default:
-                    args[i] = Nan::Undefined();
+                    args.push_back(Nan::Undefined());
                     break;
             }
         }

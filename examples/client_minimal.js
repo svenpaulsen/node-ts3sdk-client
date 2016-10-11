@@ -147,7 +147,10 @@ ts3client.on("onTalkStatusChangeEvent", function(schID, status, isWhisper, clien
  */
 ts3client.on("onServerErrorEvent", function(schID, error, errno, returnCode, extraMessage)
 {
-  ts3client.logMessage("Server returned error: " + error, 1);
+  if(errno)
+  {
+    ts3client.logMessage("Server returned error: " + error, 1);
+  }
 });
 
 // ============================================================
