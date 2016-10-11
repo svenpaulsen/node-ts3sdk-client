@@ -22,6 +22,8 @@
         "src/error.h",
         "src/event.cpp",
         "src/event.h",
+        "src/filetransfer.cpp",
+        "src/filetransfer.h",
         "src/helper.cpp",
         "src/helper.h",
         "src/identity.cpp",
