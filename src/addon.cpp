@@ -11,6 +11,7 @@
 #include "connection.h"
 #include "error.h"
 #include "event.h"
+#include "filetransfer.h"
 #include "identity.h"
 #include "log.h"
 #include "playback.h"
@@ -113,6 +114,36 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "getServerVariableAsUInt64",           Server::GetVarAsUInt64);
     Nan::SetMethod(exports, "getServerVariableAsString",           Server::GetVarAsString);
     Nan::SetMethod(exports, "requestSendServerTextMsg",            Server::SendMessage);
+    
+    // filetransfer
+    Nan::SetMethod(exports, "sendFile",                                 FileTransfer::InitUpload);
+    Nan::SetMethod(exports, "requestFile",                              FileTransfer::InitDownload);
+    Nan::SetMethod(exports, "haltTransfer",                             FileTransfer::Stop);
+    Nan::SetMethod(exports, "requestFileList",                          FileTransfer::GetFileList);
+    Nan::SetMethod(exports, "requestFileInfo",                          FileTransfer::GetFileInfo);
+    Nan::SetMethod(exports, "requestDeleteFile",                        FileTransfer::DeleteFile);
+    Nan::SetMethod(exports, "requestRenameFile",                        FileTransfer::RenameFile);
+    Nan::SetMethod(exports, "requestCreateDirectory",                   FileTransfer::CreateDirectory);
+    Nan::SetMethod(exports, "setInstanceSpeedLimitUp",                  FileTransfer::SetInstanceSpeedLimitUpload);
+    Nan::SetMethod(exports, "setInstanceSpeedLimitDown",                FileTransfer::SetInstanceSpeedLimitDownload);
+    Nan::SetMethod(exports, "setServerConnectionHandlerSpeedLimitUp",   FileTransfer::SetServerSpeedLimitUpload);
+    Nan::SetMethod(exports, "setServerConnectionHandlerSpeedLimitDown", FileTransfer::SetServerSpeedLimitDownload);
+    Nan::SetMethod(exports, "setTransferSpeedLimit",                    FileTransfer::SetTransferSpeedLimit);
+    Nan::SetMethod(exports, "getInstanceSpeedLimitUp",                  FileTransfer::GetInstanceSpeedLimitUpload);
+    Nan::SetMethod(exports, "getInstanceSpeedLimitDown",                FileTransfer::GetInstanceSpeedLimitDownload);
+    Nan::SetMethod(exports, "getServerConnectionHandlerSpeedLimitUp",   FileTransfer::GetServerSpeedLimitUpload);
+    Nan::SetMethod(exports, "getServerConnectionHandlerSpeedLimitDown", FileTransfer::GetServerSpeedLimitDownload);
+    Nan::SetMethod(exports, "setTransferSpeedLimit",                    FileTransfer::GetTransferSpeedLimit);
+    Nan::SetMethod(exports, "getTransferFileName",                      FileTransfer::GetTransferFileName);
+    Nan::SetMethod(exports, "getTransferFilePath",                      FileTransfer::GetTransferFilePath);
+    Nan::SetMethod(exports, "getTransferFileRemotePath",                FileTransfer::GetTransferFilePathRemote);
+    Nan::SetMethod(exports, "getTransferFileSize",                      FileTransfer::GetTransferFileSize);
+    Nan::SetMethod(exports, "getTransferFileSizeDone",                  FileTransfer::GetTransferFileSizeDone);
+    Nan::SetMethod(exports, "getTransferStatus",                        FileTransfer::GetTransferStatus);
+    Nan::SetMethod(exports, "getTransferRunTime",                       FileTransfer::GetTransferRuntime);
+    Nan::SetMethod(exports, "getCurrentTransferSpeed",                  FileTransfer::GetTransferSpeed);
+    Nan::SetMethod(exports, "getAverageTransferSpeed",                  FileTransfer::GetTransferSpeedAverage);
+    Nan::SetMethod(exports, "isTransferSender",                         FileTransfer::IsTransferSender);
     
     // log
     Nan::SetMethod(exports, "logMessage",      Log::AddMessage);
