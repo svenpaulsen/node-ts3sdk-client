@@ -126,7 +126,7 @@ NAN_METHOD(Event::On)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered on connection status updates.
+ * TeamSpeak 3 ClientLib event triggered on connection status updates.
  */
 void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error)
 {
@@ -134,7 +134,7 @@ void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned 
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when receiving the server protocol version.
+ * TeamSpeak 3 ClientLib event triggered when receiving the server protocol version.
  */
 void Event::onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion)
 {
@@ -142,7 +142,7 @@ void Event::onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the server announces a channel.
+ * TeamSpeak 3 ClientLib event triggered when the server announces a channel.
  */
 void Event::onNewChannelEvent(uint64 scHandlerID, uint64 channelID, uint64 channelPID)
 {
@@ -150,7 +150,7 @@ void Event::onNewChannelEvent(uint64 scHandlerID, uint64 channelID, uint64 chann
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a new channel is created.
+ * TeamSpeak 3 ClientLib event triggered when a new channel is created.
  */
 void Event::onNewChannelCreatedEvent(uint64 scHandlerID, uint64 channelID, uint64 channelPID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -158,7 +158,7 @@ void Event::onNewChannelCreatedEvent(uint64 scHandlerID, uint64 channelID, uint6
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel is deleted.
+ * TeamSpeak 3 ClientLib event triggered when a channel is deleted.
  */
 void Event::onDelChannelEvent(uint64 scHandlerID, uint64 channelID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -166,7 +166,7 @@ void Event::onDelChannelEvent(uint64 scHandlerID, uint64 channelID, anyID invoke
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel is moved.
+ * TeamSpeak 3 ClientLib event triggered when a channel is moved.
  */
 void Event::onChannelMoveEvent(uint64 scHandlerID, uint64 channelID, uint64 newChannelPID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -174,7 +174,7 @@ void Event::onChannelMoveEvent(uint64 scHandlerID, uint64 channelID, uint64 newC
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channels flags are updated.
+ * TeamSpeak 3 ClientLib event triggered when a channels flags are updated.
  */
 void Event::onUpdateChannelEvent(uint64 scHandlerID, uint64 channelID)
 {
@@ -182,7 +182,7 @@ void Event::onUpdateChannelEvent(uint64 scHandlerID, uint64 channelID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channels properties are updated.
+ * TeamSpeak 3 ClientLib event triggered when a channels properties are updated.
  */
 void Event::onUpdateChannelEditedEvent(uint64 scHandlerID, uint64 channelID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -190,7 +190,7 @@ void Event::onUpdateChannelEditedEvent(uint64 scHandlerID, uint64 channelID, any
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a clients properties are updated.
+ * TeamSpeak 3 ClientLib event triggered when a clients properties are updated.
  */
 void Event::onUpdateClientEvent(uint64 scHandlerID, anyID clientID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -198,7 +198,7 @@ void Event::onUpdateClientEvent(uint64 scHandlerID, anyID clientID, anyID invoke
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client switches the channel, connects or disconnects.
+ * TeamSpeak 3 ClientLib event triggered when a client switches the channel, connects or disconnects.
  */
 void Event::onClientMoveEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, const char* message)
 {
@@ -206,7 +206,7 @@ void Event::onClientMoveEvent(uint64 scHandlerID, anyID clientID, uint64 oldChan
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the server announces a client.
+ * TeamSpeak 3 ClientLib event triggered when the server announces a client.
  */
 void Event::onClientMoveSubscriptionEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility)
 {
@@ -214,7 +214,7 @@ void Event::onClientMoveSubscriptionEvent(uint64 scHandlerID, anyID clientID, ui
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client times out.
+ * TeamSpeak 3 ClientLib event triggered when a client times out.
  */
 void Event::onClientMoveTimeoutEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, const char* message)
 {
@@ -222,7 +222,7 @@ void Event::onClientMoveTimeoutEvent(uint64 scHandlerID, anyID clientID, uint64 
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client is moved.
+ * TeamSpeak 3 ClientLib event triggered when a client is moved.
  */
 void Event::onClientMoveMovedEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
@@ -230,7 +230,7 @@ void Event::onClientMoveMovedEvent(uint64 scHandlerID, anyID clientID, uint64 ol
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client is kicked from a channel.
+ * TeamSpeak 3 ClientLib event triggered when a client is kicked from a channel.
  */
 void Event::onClientKickFromChannelEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
@@ -238,25 +238,31 @@ void Event::onClientKickFromChannelEvent(uint64 scHandlerID, anyID clientID, uin
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client is kicked from the server.
+ * TeamSpeak 3 ClientLib event triggered when a client is kicked from the server.
  */
 void Event::onClientKickFromServerEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
     emit(new Payload(__FUNCTION__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when the server is announcing client IDs.
+ */
 void Event::onClientIDsEvent(uint64 scHandlerID, const char* clientUID, anyID clientID, const char* clientName)
 {
     emit(new Payload(__FUNCTION__, "6sIs", scHandlerID, clientUID, clientID, clientName));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when the server finished announcing client IDs.
+ */
 void Event::onClientIDsFinishedEvent(uint64 scHandlerID)
 {
     emit(new Payload(__FUNCTION__, "6", scHandlerID));
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the servers properties are updated.
+ * TeamSpeak 3 ClientLib event triggered when the servers properties are updated.
  */
 void Event::onServerEditedEvent(uint64 scHandlerID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
@@ -264,7 +270,7 @@ void Event::onServerEditedEvent(uint64 scHandlerID, anyID invokerID, const char*
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the servers flags are updated.
+ * TeamSpeak 3 ClientLib event triggered when the servers flags are updated.
  */
 void Event::onServerUpdatedEvent(uint64 scHandlerID)
 {
@@ -272,7 +278,7 @@ void Event::onServerUpdatedEvent(uint64 scHandlerID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the server reports an error.
+ * TeamSpeak 3 ClientLib event triggered when the server reports an error.
  */
 void Event::onServerErrorEvent(uint64 scHandlerID, const char* errorMessage, unsigned int error, const char* returnCode, const char* extraMessage)
 {
@@ -280,7 +286,7 @@ void Event::onServerErrorEvent(uint64 scHandlerID, const char* errorMessage, uns
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the server is shutting down.
+ * TeamSpeak 3 ClientLib event triggered when the server is shutting down.
  */
 void Event::onServerStopEvent(uint64 scHandlerID, const char* shutdownMessage)
 {
@@ -288,7 +294,7 @@ void Event::onServerStopEvent(uint64 scHandlerID, const char* shutdownMessage)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when receiving a text message.
+ * TeamSpeak 3 ClientLib event triggered when receiving a text message.
  */
 void Event::onTextMessageEvent(uint64 scHandlerID, anyID targetMode, anyID toID, anyID fromID, const char* fromName, const char* fromUID, const char* message)
 {
@@ -296,7 +302,7 @@ void Event::onTextMessageEvent(uint64 scHandlerID, anyID targetMode, anyID toID,
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a client starts/stops talking.
+ * TeamSpeak 3 ClientLib event triggered when a client starts/stops talking.
  */
 void Event::onTalkStatusChangeEvent(uint64 scHandlerID, int status, int isWhisper, anyID clientID)
 {
@@ -304,25 +310,31 @@ void Event::onTalkStatusChangeEvent(uint64 scHandlerID, int status, int isWhispe
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when an incoming whisper is ignored.
+ * TeamSpeak 3 ClientLib event triggered when an incoming whisper is ignored.
  */
 void Event::onIgnoredWhisperEvent(uint64 scHandlerID, anyID clientID)
 {
     emit(new Payload(__FUNCTION__, "6I", scHandlerID, clientID));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when receiving client connection information.
+ */
 void Event::onConnectionInfoEvent(uint64 scHandlerID, anyID clientID)
 {
     emit(new Payload(__FUNCTION__, "6I", scHandlerID, clientID));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when receiving server connection information.
+ */
 void Event::onServerConnectionInfoEvent(uint64 scHandlerID)
 {
     emit(new Payload(__FUNCTION__, "6", scHandlerID));
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel subscription is requested.
+ * TeamSpeak 3 ClientLib event triggered when a channel subscription is requested.
  */
 void Event::onChannelSubscribeEvent(uint64 scHandlerID, uint64 channelID)
 {
@@ -330,7 +342,7 @@ void Event::onChannelSubscribeEvent(uint64 scHandlerID, uint64 channelID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel subscription is complete.
+ * TeamSpeak 3 ClientLib event triggered when a channel subscription is complete.
  */
 void Event::onChannelSubscribeFinishedEvent(uint64 scHandlerID)
 {
@@ -338,7 +350,7 @@ void Event::onChannelSubscribeFinishedEvent(uint64 scHandlerID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel subscription removal is requested.
+ * TeamSpeak 3 ClientLib event triggered when a channel subscription removal is requested.
  */
 void Event::onChannelUnsubscribeEvent(uint64 scHandlerID, uint64 channelID)
 {
@@ -346,7 +358,7 @@ void Event::onChannelUnsubscribeEvent(uint64 scHandlerID, uint64 channelID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel subscription removal is complete.
+ * TeamSpeak 3 ClientLib event triggered when a channel subscription removal is complete.
  */
 void Event::onChannelUnsubscribeFinishedEvent(uint64 scHandlerID)
 {
@@ -354,7 +366,7 @@ void Event::onChannelUnsubscribeFinishedEvent(uint64 scHandlerID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel description is updated.
+ * TeamSpeak 3 ClientLib event triggered when a channel description is updated.
  */
 void Event::onChannelDescriptionUpdateEvent(uint64 scHandlerID, uint64 channelID)
 {
@@ -362,7 +374,7 @@ void Event::onChannelDescriptionUpdateEvent(uint64 scHandlerID, uint64 channelID
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a channel password is updated.
+ * TeamSpeak 3 ClientLib event triggered when a channel password is updated.
  */
 void Event::onChannelPasswordChangedEvent(uint64 scHandlerID, uint64 channelID)
 {
@@ -370,7 +382,7 @@ void Event::onChannelPasswordChangedEvent(uint64 scHandlerID, uint64 channelID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a cplayback device is shut down.
+ * TeamSpeak 3 ClientLib event triggered when a cplayback device is shut down.
  */
 void Event::onPlaybackShutdownCompleteEvent(uint64 scHandlerID)
 {
@@ -378,7 +390,7 @@ void Event::onPlaybackShutdownCompleteEvent(uint64 scHandlerID)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when the list of audio devices is changed.
+ * TeamSpeak 3 ClientLib event triggered when the list of audio devices is changed.
  */
 void Event::onSoundDeviceListChangedEvent(const char* modeID, int type)
 {
@@ -386,33 +398,39 @@ void Event::onSoundDeviceListChangedEvent(const char* modeID, int type)
 }
 
 /**
- * TeamSpeak 3 CliebtLib event triggered when a message is logged.
+ * TeamSpeak 3 ClientLib event triggered when a message is logged.
  */
 void Event::onUserLoggingMessageEvent(const char* message, int logLevel, const char* logChannel, uint64 logID, const char* logTime, const char* formattedString)
 {
     emit(new Payload(__FUNCTION__, "sis6ss", message, logLevel, logChannel, logID, logTime, formattedString));
 }
 
-void Event::onProvisioningSlotRequestResultEvent(unsigned int error, uint64 requestHandle, const char* connectionKey)
-{
-    emit(new Payload(__FUNCTION__, "I6s", error, requestHandle, connectionKey));
-}
-
+/**
+ * TeamSpeak 3 ClientLib event triggered when receiving file transfer status updates.
+ */
 void Event::onFileTransferStatusEvent(anyID transferID, unsigned int status, const char* statusMessage, uint64 remoteSize, uint64 scHandlerID)
 {
     emit(new Payload(__FUNCTION__, "IIs66", (unsigned int) transferID, status, statusMessage, remoteSize, scHandlerID));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when the server is announcing available files/directories.
+ */
 void Event::onFileListEvent(uint64 scHandlerID, uint64 channelID, const char* path, const char* name, uint64 size, uint64 datetime, int type, uint64 incompleteSize, const char* returnCode)
 {
     emit(new Payload(__FUNCTION__, "66ss66i6s", scHandlerID, channelID, path, name, size, datetime, type, incompleteSize, returnCode));
 }
 
+/**
+ * TeamSpeak 3 ClientLib event triggered when the server finished announcing available files/directories.
+ */
 void Event::onFileListFinishedEvent(uint64 scHandlerID, uint64 channelID, const char* path)
 {
     emit(new Payload(__FUNCTION__, "66s", scHandlerID, channelID, path));
 }
-
+/**
+ * TeamSpeak 3 ClientLib event triggered when receiving file/directoy information.
+ */
 void Event::onFileInfoEvent(uint64 scHandlerID, uint64 channelID, const char* name, uint64 size, uint64 datetime)
 {
     emit(new Payload(__FUNCTION__, "66s66", scHandlerID, channelID, name, size, datetime));

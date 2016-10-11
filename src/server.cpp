@@ -14,7 +14,35 @@
  */
 NAN_METHOD(Server::GetConectionInfo)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        returnCode;
+    char*        defretCode = Helper::createReturnCode();
+    
+    if((error = Argument::num(info, 1, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &returnCode, defretCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_requestServerConnectionInfo(scHandlerID, returnCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
+    
+    free(returnCode);
+    free(defretCode);
 }
 
 /**
@@ -22,52 +50,190 @@ NAN_METHOD(Server::GetConectionInfo)
  */
 NAN_METHOD(Server::GetConectionVarAsUInt64)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int flag;
+    uint64       variable;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &flag, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getServerConnectionVariableAsUInt64(scHandlerID, flag, &variable)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New<v8::Number>(variable));
 }
-
 
 /**
  * Wrapper for ts3client_getServerConnectionVariableAsFloat().
  */
 NAN_METHOD(Server::GetConectionVarAsFloat)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int flag;
+    float        variable;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &flag, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getServerConnectionVariableAsFloat(scHandlerID, flag, &variable)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New<v8::Number>(variable));
 }
-
 
 /**
  * Wrapper for ts3client_requestServerVariables().
  */
 NAN_METHOD(Server::GetVars)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    
+    if((error = Argument::num(info, 1)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_requestServerVariables(scHandlerID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
 }
-
 
 /**
  * Wrapper for ts3client_getServerVariableAsInt().
  */
 NAN_METHOD(Server::GetVarAsInt)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int flag;
+    int          variable;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &flag, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getServerVariableAsInt(scHandlerID, flag, &variable)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New<v8::Number>(variable));
 }
-
 
 /**
  * Wrapper for ts3client_getServerVariableAsUInt64().
  */
 NAN_METHOD(Server::GetVarAsUInt64)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int flag;
+    uint64       variable;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &flag, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getServerVariableAsUInt64(scHandlerID, flag, &variable)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New<v8::Number>(variable));
 }
-
 
 /**
  * Wrapper for ts3client_getServerVariableAsString().
  */
 NAN_METHOD(Server::GetVarAsString)
 {
-    return Error::throwException(ERROR_not_implemented);
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int flag;
+    char*        variable;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 2, &flag, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getServerVariableAsString(scHandlerID, flag, &variable)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(variable).ToLocalChecked());
+    
+    ts3client_freeMemory(variable);
 }
 
 /**

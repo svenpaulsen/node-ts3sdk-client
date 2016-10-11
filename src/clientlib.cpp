@@ -75,7 +75,6 @@ NAN_METHOD(ClientLib::Init)
     clientSDK.onPlaybackShutdownCompleteEvent      = Event::onPlaybackShutdownCompleteEvent;
     clientSDK.onSoundDeviceListChangedEvent        = Event::onSoundDeviceListChangedEvent;
     clientSDK.onUserLoggingMessageEvent            = Event::onUserLoggingMessageEvent;
-    clientSDK.onProvisioningSlotRequestResultEvent = Event::onProvisioningSlotRequestResultEvent;
     clientSDK.onFileTransferStatusEvent            = Event::onFileTransferStatusEvent;
     clientSDK.onFileListEvent                      = Event::onFileListEvent;
     clientSDK.onFileListFinishedEvent              = Event::onFileListFinishedEvent;
