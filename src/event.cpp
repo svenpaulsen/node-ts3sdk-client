@@ -385,36 +385,6 @@ void Event::onSoundDeviceListChangedEvent(const char* modeID, int type)
     emit(new Payload(__FUNCTION__, "si", modeID, type));
 }
 
-void Event::onEditPlaybackVoiceDataEvent(uint64 scHandlerID, anyID clientID, short* samples, int sampleCount, int channels)
-{
-    // not implemented
-}
-
-void Event::onEditPostProcessVoiceDataEvent(uint64 scHandlerID, anyID clientID, short* samples, int sampleCount, int channels, const unsigned int* channelSpeakerArray, unsigned int* channelFillMask)
-{
-    // not implemented
-}
-
-void Event::onEditMixedPlaybackVoiceDataEvent(uint64 scHandlerID, short* samples, int sampleCount, int channels, const unsigned int* channelSpeakerArray, unsigned int* channelFillMask)
-{
-    // not implemented
-}
-
-void Event::onEditCapturedVoiceDataEvent(uint64 scHandlerID, short* samples, int sampleCount, int channels, int* edited)
-{
-    // not implemented
-}
-
-void Event::onCustom3dRolloffCalculationClientEvent(uint64 scHandlerID, anyID clientID, float distance, float* volume)
-{
-    // not implemented
-}
-
-void Event::onCustom3dRolloffCalculationWaveEvent(uint64 scHandlerID, uint64 waveHandle, float distance, float* volume)
-{
-    // not implemented
-}
-
 /**
  * TeamSpeak 3 CliebtLib event triggered when a message is logged.
  */
@@ -423,29 +393,9 @@ void Event::onUserLoggingMessageEvent(const char* message, int logLevel, const c
     emit(new Payload(__FUNCTION__, "sis6ss", message, logLevel, logChannel, logID, logTime, formattedString));
 }
 
-void Event::onCustomPacketEncryptEvent(char** data, unsigned int* size)
-{
-    // not implemented
-}
-
-void Event::onCustomPacketDecryptEvent(char** data, unsigned int* size)
-{
-    // not implemented
-}
-
 void Event::onProvisioningSlotRequestResultEvent(unsigned int error, uint64 requestHandle, const char* connectionKey)
 {
     emit(new Payload(__FUNCTION__, "I6s", error, requestHandle, connectionKey));
-}
-
-void Event::onCheckServerUniqueIdentifierEvent(uint64 scHandlerID, const char* serverUID, int* cancelConnect)
-{
-    // not implemented
-}
-
-void Event::onClientPasswordEncrypt(uint64 scHandlerID, const char* plain, char* encrypted, int size)
-{
-    emit(new Payload(__FUNCTION__, "6ssi", scHandlerID, plain, encrypted, size));
 }
 
 void Event::onFileTransferStatusEvent(anyID transferID, unsigned int status, const char* statusMessage, uint64 remoteSize, uint64 scHandlerID)
