@@ -15,6 +15,7 @@ public:
     static NAN_METHOD(Init);
     static NAN_METHOD(Destroy);
     static NAN_METHOD(Start);
+    static NAN_METHOD(StartWithChannelID);
     static NAN_METHOD(Stop);
     static NAN_METHOD(GetList);
     static NAN_METHOD(GetStatus);

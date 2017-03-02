@@ -32,6 +32,7 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "spawnNewServerConnectionHandler", Connection::Init);
     Nan::SetMethod(exports, "destroyServerConnectionHandler",  Connection::Destroy);
     Nan::SetMethod(exports, "startConnection",                 Connection::Start);
+    Nan::SetMethod(exports, "startConnectionWithChannelID",    Connection::StartWithChannelID);
     Nan::SetMethod(exports, "stopConnection",                  Connection::Stop);
     Nan::SetMethod(exports, "getConnectionStatus",             Connection::GetStatus);
     Nan::SetMethod(exports, "getServerConnectionHandlerList",  Connection::GetList);

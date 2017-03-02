@@ -133,6 +133,72 @@ NAN_METHOD(Connection::Start)
 }
 
 /**
+ * Wrapper for ts3client_startConnectionWithChannelID().
+ */
+NAN_METHOD(Connection::StartWithChannelID)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        identity;
+    char*        host;
+    unsigned int port;
+    char*        nickname;
+    uint64       channelID;
+    char*        channelPwd;
+    char*        serverPwd;
+    
+    if((error = Argument::num(info, 3, 8)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &identity, "")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 2, &host, "")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 3, &port, 9987)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 4, &nickname, "TeamSpeak User")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 5, &channelID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 6, &channelPwd, "")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 7, &serverPwd, "")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_startConnectionWithChannelID(scHandlerID, identity, host, port, nickname, channelID, channelPwd, serverPwd)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
+
+/**
  * Wrapper for ts3client_stopConnection().
  */
 NAN_METHOD(Connection::Stop)
