@@ -17,6 +17,20 @@
 extern "C" {
 #endif
 
+struct TS3ChannelCreationParams;        //opaque definition
+struct TS3VirtualServerCreationParams;  //opaque definition
+struct TS3Variables;                    //opaque definition
+
+enum VirtualServerCreateFlags{ 
+	VIRTUALSERVER_CREATE_FLAG_NONE                = 0x0000,
+	VIRTUALSERVER_CREATE_FLAG_PASSWORDS_ENCRYPTED = 0x0001,
+};
+
+enum ChannelCreateFlags{ 
+	CHANNEL_CREATE_FLAG_NONE                = 0x000,
+	CHANNEL_CREATE_FLAG_PASSWORDS_ENCRYPTED = 0x001,
+};
+
 struct ServerLibFunctions {
 	void (*onVoiceDataEvent)           (uint64 serverID, anyID clientID, unsigned char* voiceData, unsigned int voiceDataSize, unsigned int frequency);
 	void (*onClientStartTalkingEvent)  (uint64 serverID, anyID clientID);
@@ -83,8 +97,10 @@ EXPORTDLL unsigned int ts3server_getGlobalErrorMessage(unsigned int globalErrorC
 
 /*client info*/
 EXPORTDLL unsigned int ts3server_getClientVariableAsInt(uint64 serverID, anyID clientID, enum ClientProperties flag, int* result);
+EXPORTDLL unsigned int ts3server_getClientVariableAsUInt64(uint64 serverID, anyID clientID, enum ClientProperties flag, uint64* result);
 EXPORTDLL unsigned int ts3server_getClientVariableAsString(uint64 serverID, anyID clientID, enum ClientProperties flag, char** result);
 EXPORTDLL unsigned int ts3server_setClientVariableAsInt(uint64 serverID, anyID clientID, enum ClientProperties flag, int value);
+EXPORTDLL unsigned int ts3server_setClientVariableAsUInt64(uint64 serverID, anyID clientID, enum ClientProperties flag, uint64 value);
 EXPORTDLL unsigned int ts3server_setClientVariableAsString(uint64 serverID, anyID clientID, enum ClientProperties flag, const char* value);
 EXPORTDLL unsigned int ts3server_flushClientVariable(uint64 serverID, anyID clientID);
 
@@ -99,11 +115,18 @@ EXPORTDLL unsigned int ts3server_getClientIDSfromUIDS(uint64 serverID, const cha
 
 /*channel info*/
 EXPORTDLL unsigned int ts3server_getChannelVariableAsInt(uint64 serverID, uint64 channelID, enum ChannelProperties flag, int* result);
+EXPORTDLL unsigned int ts3server_getChannelVariableAsUInt64(uint64 serverID, uint64 channelID, enum ChannelProperties flag, uint64* result);
 EXPORTDLL unsigned int ts3server_getChannelVariableAsString(uint64 serverID, uint64 channelID, enum ChannelProperties flag, char** result);
 EXPORTDLL unsigned int ts3server_setChannelVariableAsInt(uint64 serverID, uint64 channelID, enum ChannelProperties flag, int value);
+EXPORTDLL unsigned int ts3server_setChannelVariableAsUInt64(uint64 serverID, uint64 channelID, enum ChannelProperties flag, uint64 value);
 EXPORTDLL unsigned int ts3server_setChannelVariableAsString(uint64 serverID, uint64 channelID, enum ChannelProperties flag, const char* value);
 EXPORTDLL unsigned int ts3server_flushChannelVariable(uint64 serverID, uint64 channelID);
 EXPORTDLL unsigned int ts3server_flushChannelCreation(uint64 serverID, uint64 channelParentID, uint64* result);
+
+EXPORTDLL unsigned int ts3server_makeChannelCreationParams(struct TS3ChannelCreationParams** result);
+EXPORTDLL unsigned int ts3server_setChannelCreationParams(struct TS3ChannelCreationParams* channelCreationParams, uint64 channelParentID, uint64 channelID); /*0 id's means undefined*/
+EXPORTDLL unsigned int ts3server_getChannelCreationParamsVariables(struct TS3ChannelCreationParams* channelCreationParams, struct TS3Variables** result);
+EXPORTDLL unsigned int ts3server_createChannel(uint64 serverID, struct TS3ChannelCreationParams* channelCreationParams, enum ChannelCreateFlags flags, uint64* result);
 
 EXPORTDLL unsigned int ts3server_getChannelList(uint64 serverID, uint64** result);
 EXPORTDLL unsigned int ts3server_getChannelClientList(uint64 serverID, uint64 channelID, anyID** result);
@@ -121,6 +144,12 @@ EXPORTDLL unsigned int ts3server_setVirtualServerVariableAsUInt64(uint64 serverI
 EXPORTDLL unsigned int ts3server_setVirtualServerVariableAsString(uint64 serverID, enum VirtualServerProperties flag, const char* value);
 EXPORTDLL unsigned int ts3server_flushVirtualServerVariable(uint64 serverID);
 
+EXPORTDLL unsigned int ts3server_makeVirtualServerCreationParams(struct TS3VirtualServerCreationParams** result);
+EXPORTDLL unsigned int ts3server_setVirtualServerCreationParams(struct TS3VirtualServerCreationParams* virtualServerCreationParams, unsigned int serverPort, const char* serverIp, const char* serverKeyPair, unsigned int serverMaxClients, unsigned int channelCount, uint64 serverID);
+EXPORTDLL unsigned int ts3server_getVirtualServerCreationParamsVariables(struct TS3VirtualServerCreationParams* virtualServerCreationParams, struct TS3Variables** result);
+EXPORTDLL unsigned int ts3server_getVirtualServerCreationParamsChannelCreationParams(struct TS3VirtualServerCreationParams* virtualServerCreationParams, unsigned int channelIdx, struct TS3ChannelCreationParams** result);
+EXPORTDLL unsigned int ts3server_createVirtualServer2(struct TS3VirtualServerCreationParams* virtualServerCreationParams, enum VirtualServerCreateFlags flags, uint64* result);
+
 EXPORTDLL unsigned int ts3server_getVirtualServerConnectionVariableAsUInt64(uint64 serverID, enum ConnectionProperties flag, uint64* result);
 EXPORTDLL unsigned int ts3server_getVirtualServerConnectionVariableAsDouble(uint64 serverID, enum ConnectionProperties flag, double* result);
 
@@ -132,6 +161,14 @@ EXPORTDLL unsigned int ts3server_getVirtualServerKeyPair(uint64 serverID, char**
 /*security salt/hash*/
 EXPORTDLL unsigned int ts3server_createSecuritySalt(int options, void* salt, int saltByteSize, char** securitySalt);
 EXPORTDLL unsigned int ts3server_calculateSecurityHash(const char* securitySalt, const char* clientUniqueIdentifier, const char* clientNickName, const char* clientMetaData, char** securityHash);
+
+/*variable editing*/
+EXPORTDLL unsigned int ts3server_getVariableAsInt(struct TS3Variables* var, int flag, int* result);
+EXPORTDLL unsigned int ts3server_getVariableAsUInt64(struct TS3Variables* var, int flag, uint64* result);
+EXPORTDLL unsigned int ts3server_getVariableAsString(struct TS3Variables* var, int flag, char** result);
+EXPORTDLL unsigned int ts3server_setVariableAsInt(struct TS3Variables* var, int flag, int value);
+EXPORTDLL unsigned int ts3server_setVariableAsUInt64(struct TS3Variables* var, int flag, uint64 value);
+EXPORTDLL unsigned int ts3server_setVariableAsString(struct TS3Variables* var, int flag, const char* value);
 
 #ifdef __cplusplus
 }

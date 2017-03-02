@@ -44,27 +44,27 @@
       "conditions": [
         ["OS==\"win\" and target_arch==\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/ts3client_win64.dll",
+            "<(module_root_dir)/bin/windows/win64/ts3client.dll",
           ],
         }],
         ["OS==\"win\" and target_arch!=\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/ts3client_win32.dll",
+            "<(module_root_dir)/bin/windows/win32/ts3client.dll",
           ],
         }],
         ["OS==\"linux\" and target_arch==\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_linux_amd64.so",
+            "<(module_root_dir)/bin/linux/amd64/libts3client.so",
           ],
         }],
         ["OS==\"linux\" and target_arch!=\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_linux_x86.so",
+            "<(module_root_dir)/bin/linux/x86/libts3client.so",
           ],
         }],
         ["OS==\"mac\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_mac.dylib",
+            "<(module_root_dir)/bin/darwin/libts3client.dylib",
           ],
         }],
       ]

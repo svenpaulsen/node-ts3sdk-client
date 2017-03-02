@@ -160,10 +160,10 @@ ts3client.on("onServerErrorEvent", function(schID, error, errno, returnCode, ext
 try
 {
   /**
-   * Initialize the ClientLib and point the resource path to the SDK\bin directory to locate the sound 
-   * backend libraries.
+   * Initialize the ClientLib and point the resource path to the platform specific SDK\bin directory to 
+   * locate the sound backend libraries.
    */
-  ts3client.initClientLib(2, undefined, __dirname + "/../bin/");
+  ts3client.initClientLib(2, undefined, __dirname + "/../bin/darwin/");
 
   /**
    * Spawn a new server connection handler and store its ID. Since we did not specify any port, the OS

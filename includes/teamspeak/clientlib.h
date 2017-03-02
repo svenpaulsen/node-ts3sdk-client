@@ -159,6 +159,8 @@ EXPORTDLL unsigned int ts3client_getErrorMessage(unsigned int errorCode, char** 
 /*Interacting with the server*/
 EXPORTDLL unsigned int ts3client_startConnection(uint64 serverConnectionHandlerID, const char* identity, const char* ip, unsigned int port, const char* nickname,
                                                  const char** defaultChannelArray, const char* defaultChannelPassword, const char* serverPassword);
+EXPORTDLL unsigned int ts3client_startConnectionWithChannelID(uint64 serverConnectionHandlerID, const char* identity, const char* ip, unsigned int port, const char* nickname,
+                                                              uint64 defaultChannelId, const char* defaultChannelPassword, const char* serverPassword);
 EXPORTDLL unsigned int ts3client_stopConnection(uint64 serverConnectionHandlerID, const char* quitMessage);
 EXPORTDLL unsigned int ts3client_requestClientMove(uint64 serverConnectionHandlerID, anyID clientID, uint64 newChannelID, const char* password, const char* returnCode);
 EXPORTDLL unsigned int ts3client_requestClientVariables(uint64 serverConnectionHandlerID, anyID clientID, const char* returnCode);

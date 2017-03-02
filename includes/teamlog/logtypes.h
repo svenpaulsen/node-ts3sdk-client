@@ -8,6 +8,7 @@ enum LogTypes {
 	LogType_USERLOGGING   = 0x0004,
 	LogType_NO_NETLOGGING = 0x0008,
 	LogType_DATABASE      = 0x0010,
+	LogType_SYSLOG        = 0x0020,
 };
 
 enum LogLevel {
