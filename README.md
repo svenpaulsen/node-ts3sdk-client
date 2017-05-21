@@ -9,11 +9,17 @@ This native Node.js addon is a wrapper for the TeamSpeak 3 SDK and allows JavaSc
 - [TeamSpeak 3 SDK](https://www.teamspeak.com)
 - [Node.js](https://www.nodejs.org)
 - [Native Addon Build Tool for Node.js](https://github.com/nodejs/node-gyp)
-- [Native Abstractions for Node.js](https://github.com/nodejs/nan)
+
+## Install NPM dependencies
+```sh
+npm install
+```
 
 ## Building from Source
 
 After cloning this repository including submodules, issue the following commands in the root directory:
 
-    node-gyp configure
-    node-gyp build
+```sh
+$ node-gyp configure
+$ node-gyp build
+```
