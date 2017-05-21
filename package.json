@@ -8,6 +8,6 @@
     "url": "git://github.com/svenpaulsen/node-ts3sdk-client.git"
   },
   "dependencies": {
-    "nan": "^2.4.0"
+    "nan": "^2.6.2"
   }
 }
