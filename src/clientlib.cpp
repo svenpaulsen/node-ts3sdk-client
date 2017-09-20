@@ -51,6 +51,7 @@ NAN_METHOD(ClientLib::Init)
     clientSDK.onUpdateChannelEditedEvent           = Event::onUpdateChannelEditedEvent;
     clientSDK.onUpdateClientEvent                  = Event::onUpdateClientEvent;
     clientSDK.onClientMoveEvent                    = Event::onClientMoveEvent;
+    clientSDK.onClientMoveSubscriptionEvent        = Event::onClientMoveSubscriptionEvent;
     clientSDK.onClientMoveTimeoutEvent             = Event::onClientMoveTimeoutEvent;
     clientSDK.onClientMoveMovedEvent               = Event::onClientMoveMovedEvent;
     clientSDK.onClientKickFromChannelEvent         = Event::onClientKickFromChannelEvent;
