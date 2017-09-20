@@ -2,7 +2,7 @@
   "name": "node-ts3sdk-client",
   "version": "3.0.4",
   "description": "TeamSpeak 3 SDK Client addon for Node.js",
-  "license" : "MIT",
+  "license": "MIT",
   "main": "app.js",
   "repository": {
     "type": "git",
