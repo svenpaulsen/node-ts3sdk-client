@@ -18,7 +18,7 @@ switch(os.type())
     var platform = (os.arch() == "x86" ? "win32" : "win64");
     break;
   case "Linux":
-    var platform = (os.arch() == "x86" ? "linux_x85" : "linux_amd64");
+    var platform = (os.arch() == "x86" ? "linux_x86" : "linux_amd64");
     break;
   default:
     var platform = "darwin";
