@@ -50,7 +50,7 @@
             "postbuild_name": "Deploy Node.js addon",
             "action": [
               "copy",
-              "<@(PRODUCT_DIR)/ts3client.node",
+              "<@(PRODUCT_DIR)/ts3client_win64.node",
               "<(module_root_dir)/bin/win64/ts3client.node"
             ],
           }]
@@ -64,7 +64,7 @@
             "postbuild_name": "Deploy Node.js addon",
             "action": [
               "copy",
-              "<@(PRODUCT_DIR)/ts3client.node",
+              "<@(PRODUCT_DIR)/ts3client_win32.node",
               "<(module_root_dir)/bin/win32/ts3client.node"
             ],
           }]
@@ -78,7 +78,7 @@
             "postbuild_name": "Deploy Node.js addon",
             "action": [
               "cp",
-              "<@(PRODUCT_DIR)/ts3client.node",
+              "<@(PRODUCT_DIR)/ts3client_linux_amd64.node",
               "<(module_root_dir)/bin/linux_amd64/ts3client.node"
             ],
           }]
@@ -92,13 +92,13 @@
             "postbuild_name": "Deploy Node.js addon",
             "action": [
               "cp",
-              "<@(PRODUCT_DIR)/ts3client.node",
+              "<@(PRODUCT_DIR)/ts3client_linux_x86.node",
               "<(module_root_dir)/bin/linux_x86/ts3client.node"
             ],
           }]
         }],
         ["OS==\"mac\"", {
-          "target_name": "ts3client",
+          "target_name": "ts3client_darwin",
           "libraries": [
             "<(module_root_dir)/bin/darwin/libts3client.dylib",
           ],
@@ -116,7 +116,7 @@
             "postbuild_name": "Deploy Node.js addon",
             "action": [
               "cp",
-              "<@(PRODUCT_DIR)/ts3client.node",
+              "<@(PRODUCT_DIR)/ts3client_darwin.node",
               "<(module_root_dir)/bin/darwin/ts3client.node"
             ],
           }]
