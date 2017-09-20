@@ -27,7 +27,7 @@ switch(os.type())
 /**
  * Load the required Node.js addons.
  */
-var ts3client = require(__dirname + "/../build/Release/ts3client_" + platform + ".node");
+var ts3client = require(__dirname + "/../bin/" + platform + "/ts3client.node");
 
 // ============================================================
 // ======================== CALLBACKS =========================
