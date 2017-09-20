@@ -4,13 +4,30 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
+const os = require("os");
+
 process.stdin.resume();
 process.stdin.setEncoding("utf8");
 
 /**
+ * Determine platform.
+ */
+switch(os.type())
+{
+  case "Windows_NT":
+    var platform = (os.arch() == "x86" ? "win32" : "win64");
+    break;
+  case "Linux":
+    var platform = (os.arch() == "x86" ? "linux_x85" : "linux_amd64");
+    break;
+  default:
+    var platform = "darwin";
+}
+
+/**
  * Load the required Node.js addons.
  */
-var ts3client = require(__dirname + "/../build/Release/ts3client.node");
+var ts3client = require(__dirname + "/../build/Release/ts3client_" + platform + ".node");
 
 // ============================================================
 // ======================== CALLBACKS =========================
@@ -163,7 +180,7 @@ try
    * Initialize the ClientLib and point the resource path to the platform specific SDK\bin directory to 
    * locate the sound backend libraries.
    */
-  ts3client.initClientLib(2, undefined, __dirname + "/../bin/darwin/");
+  ts3client.initClientLib(2, undefined, __dirname + "/../bin/" + platform + "/");
 
   /**
    * Spawn a new server connection handler and store its ID. Since we did not specify any port, the OS
