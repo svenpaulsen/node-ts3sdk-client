@@ -1,4 +1,5 @@
 .DS_Store
 /build
 /build.sh
-node_modules
+/package-lock.json
+/node_modules
