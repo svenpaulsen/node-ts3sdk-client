@@ -1,7 +1,6 @@
 {
   "targets": [
     {
-      "target_name": "ts3client",
       "sources": [
         "src/addon.cpp",
         "src/argument.cpp",
@@ -43,26 +42,31 @@
       ],
       "conditions": [
         ["OS==\"win\" and target_arch==\"x64\"", {
+          "target_name": "ts3client_win64",
           "libraries": [
-            "<(module_root_dir)/bin/windows/win64/ts3client.dll",
+            "<(module_root_dir)/bin/win64/ts3client.dll",
           ],
         }],
         ["OS==\"win\" and target_arch!=\"x64\"", {
+          "target_name": "ts3client_win32",
           "libraries": [
-            "<(module_root_dir)/bin/windows/win32/ts3client.dll",
+            "<(module_root_dir)/bin/win32/ts3client.dll",
           ],
         }],
         ["OS==\"linux\" and target_arch==\"x64\"", {
+          "target_name": "ts3client_linux_amd64",
           "libraries": [
-            "<(module_root_dir)/bin/linux/amd64/libts3client.so",
+            "<(module_root_dir)/bin/linux_amd64/libts3client.so",
           ],
         }],
         ["OS==\"linux\" and target_arch!=\"x64\"", {
+          "target_name": "ts3client_linux_x86",
           "libraries": [
-            "<(module_root_dir)/bin/linux/x86/libts3client.so",
+            "<(module_root_dir)/bin/linux_x86/libts3client.so",
           ],
         }],
         ["OS==\"mac\"", {
+          "target_name": "ts3client_darwin",
           "libraries": [
             "<(module_root_dir)/bin/darwin/libts3client.dylib",
           ],
