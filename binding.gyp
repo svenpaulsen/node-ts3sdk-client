@@ -44,13 +44,13 @@
         ["OS==\"win\" and target_arch==\"x64\"", {
           "target_name": "ts3client_win64",
           "libraries": [
-            "<(module_root_dir)/bin/win64/ts3client.dll",
+            "<(module_root_dir)/bin/win64/ts3client.lib",
           ],
         }],
         ["OS==\"win\" and target_arch!=\"x64\"", {
           "target_name": "ts3client_win32",
           "libraries": [
-            "<(module_root_dir)/bin/win32/ts3client.dll",
+            "<(module_root_dir)/bin/win32/ts3client.lib",
           ],
         }],
         ["OS==\"linux\" and target_arch==\"x64\"", {
