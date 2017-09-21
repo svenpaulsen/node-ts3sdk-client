@@ -44,27 +44,27 @@
       "conditions": [
         ["OS==\"win\" and target_arch==\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/ts3client_win64.lib",
+            "<(module_root_dir)/bin/win64/ts3client.lib",
           ]
         }],
         ["OS==\"win\" and target_arch!=\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/ts3client_win32.lib",
+            "<(module_root_dir)/bin/win32/ts3client.lib",
           ],
         }],
         ["OS==\"linux\" and target_arch==\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_linux_amd64.so",
+            "<(module_root_dir)/bin/linux_amd64/libts3client.so",
           ]
         }],
         ["OS==\"linux\" and target_arch!=\"x64\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_linux_x86.so",
+            "<(module_root_dir)/bin/linux_x86/libts3client.so",
           ]
         }],
         ["OS==\"mac\"", {
           "libraries": [
-            "<(module_root_dir)/bin/libts3client_mac.dylib",
+            "<(module_root_dir)/bin/darwin/libts3client.dylib",
           ],
           "postbuilds": [{
             "postbuild_name": "Adjust link path to TeamSpeak SDK ClientLib",
@@ -72,7 +72,7 @@
               "install_name_tool",
               "-change",
               "/usr/local/lib/libts3client.dylib",
-              "@loader_path/libts3client_mac.dylib",
+              "@loader_path/libts3client.dylib",
               "<@(PRODUCT_DIR)/ts3client.node"
             ]
           }]
@@ -85,12 +85,48 @@
       "dependencies": [
         "ts3client"
       ],
-      "copies": [{
-        "destination": "<(module_root_dir)/bin/",
-        "files": [
-          "<(module_root_dir)/build/Release/ts3client.node"
-        ]
-      }]
+      "conditions": [
+        ["OS==\"win\" and target_arch==\"x64\"", {
+          "copies": [{
+            "destination": "<(module_root_dir)/bin/win64/",
+            "files": [
+              "<(module_root_dir)/build/Release/ts3client.node"
+            ]
+          }]
+        }],
+        ["OS==\"win\" and target_arch!=\"x64\"", {
+          "copies": [{
+            "destination": "<(module_root_dir)/bin/win32/",
+            "files": [
+              "<(module_root_dir)/build/Release/ts3client.node"
+            ]
+          }]
+        }],
+        ["OS==\"linux\" and target_arch==\"x64\"", {
+          "copies": [{
+            "destination": "<(module_root_dir)/bin/linux_amd64/",
+            "files": [
+              "<(module_root_dir)/build/Release/ts3client.node"
+            ]
+          }]
+        }],
+        ["OS==\"linux\" and target_arch!=\"x64\"", {
+          "copies": [{
+            "destination": "<(module_root_dir)/bin/linux_x86/",
+            "files": [
+              "<(module_root_dir)/build/Release/ts3client.node"
+            ]
+          }]
+        }],
+        ["OS==\"mac\"", {
+          "copies": [{
+            "destination": "<(module_root_dir)/bin/darwin/",
+            "files": [
+              "<(module_root_dir)/build/Release/ts3client.node"
+            ]
+          }]
+        }]
+      ]
     }
   ]
 }
