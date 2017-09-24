@@ -382,7 +382,7 @@ NAN_METHOD(Client::GetVarAsInt)
 {
     unsigned int error;
     uint64       scHandlerID;
-    uint64       clientID;
+    unsigned int clientID;
     unsigned int flag;
     int          variable;
     
@@ -421,7 +421,7 @@ NAN_METHOD(Client::GetVarAsUInt64)
 {
     unsigned int error;
     uint64       scHandlerID;
-    uint64       clientID;
+    unsigned int clientID;
     unsigned int flag;
     uint64       variable;
     
@@ -460,7 +460,7 @@ NAN_METHOD(Client::GetVarAsString)
 {
     unsigned int error;
     uint64       scHandlerID;
-    uint64       clientID;
+    unsigned int clientID;
     unsigned int flag;
     char*        variable;
     
