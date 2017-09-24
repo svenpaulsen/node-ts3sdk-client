@@ -130,7 +130,7 @@ NAN_METHOD(Event::On)
  */
 void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned int error)
 {
-    emit(new Payload(__FUNCTION__, "6iI", scHandlerID, status, error));
+    emit(new Payload(__func__, "6iI", scHandlerID, status, error));
 }
 
 /**
@@ -138,7 +138,7 @@ void Event::onConnectStatusChangeEvent(uint64 scHandlerID, int status, unsigned 
  */
 void Event::onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion)
 {
-    emit(new Payload(__FUNCTION__, "6i", scHandlerID, protocolVersion));
+    emit(new Payload(__func__, "6i", scHandlerID, protocolVersion));
 }
 
 /**
@@ -146,7 +146,7 @@ void Event::onServerProtocolVersionEvent(uint64 scHandlerID, int protocolVersion
  */
 void Event::onNewChannelEvent(uint64 scHandlerID, uint64 channelID, uint64 channelPID)
 {
-    emit(new Payload(__FUNCTION__, "666", scHandlerID, channelID, channelPID));
+    emit(new Payload(__func__, "666", scHandlerID, channelID, channelPID));
 }
 
 /**
@@ -154,7 +154,7 @@ void Event::onNewChannelEvent(uint64 scHandlerID, uint64 channelID, uint64 chann
  */
 void Event::onNewChannelCreatedEvent(uint64 scHandlerID, uint64 channelID, uint64 channelPID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "666Iss", scHandlerID, channelID, channelPID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "666Iss", scHandlerID, channelID, channelPID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -162,7 +162,7 @@ void Event::onNewChannelCreatedEvent(uint64 scHandlerID, uint64 channelID, uint6
  */
 void Event::onDelChannelEvent(uint64 scHandlerID, uint64 channelID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "66Iss", scHandlerID, channelID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "66Iss", scHandlerID, channelID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -170,7 +170,7 @@ void Event::onDelChannelEvent(uint64 scHandlerID, uint64 channelID, anyID invoke
  */
 void Event::onChannelMoveEvent(uint64 scHandlerID, uint64 channelID, uint64 newChannelPID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "666Iss", scHandlerID, channelID, newChannelPID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "666Iss", scHandlerID, channelID, newChannelPID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -178,7 +178,7 @@ void Event::onChannelMoveEvent(uint64 scHandlerID, uint64 channelID, uint64 newC
  */
 void Event::onUpdateChannelEvent(uint64 scHandlerID, uint64 channelID)
 {
-    emit(new Payload(__FUNCTION__, "66", scHandlerID, channelID));
+    emit(new Payload(__func__, "66", scHandlerID, channelID));
 }
 
 /**
@@ -186,7 +186,7 @@ void Event::onUpdateChannelEvent(uint64 scHandlerID, uint64 channelID)
  */
 void Event::onUpdateChannelEditedEvent(uint64 scHandlerID, uint64 channelID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "66Iss", scHandlerID, channelID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "66Iss", scHandlerID, channelID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -194,7 +194,7 @@ void Event::onUpdateChannelEditedEvent(uint64 scHandlerID, uint64 channelID, any
  */
 void Event::onUpdateClientEvent(uint64 scHandlerID, anyID clientID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "6IIss", scHandlerID, clientID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "6IIss", scHandlerID, clientID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -202,7 +202,7 @@ void Event::onUpdateClientEvent(uint64 scHandlerID, anyID clientID, anyID invoke
  */
 void Event::onClientMoveEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6I66is", scHandlerID, clientID, oldChannelID, newChannelID, visibility, message));
+    emit(new Payload(__func__, "6I66is", scHandlerID, clientID, oldChannelID, newChannelID, visibility, message));
 }
 
 /**
@@ -210,7 +210,7 @@ void Event::onClientMoveEvent(uint64 scHandlerID, anyID clientID, uint64 oldChan
  */
 void Event::onClientMoveSubscriptionEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility)
 {
-    emit(new Payload(__FUNCTION__, "6I66i", scHandlerID, clientID, oldChannelID, newChannelID, visibility));
+    emit(new Payload(__func__, "6I66i", scHandlerID, clientID, oldChannelID, newChannelID, visibility));
 }
 
 /**
@@ -218,7 +218,7 @@ void Event::onClientMoveSubscriptionEvent(uint64 scHandlerID, anyID clientID, ui
  */
 void Event::onClientMoveTimeoutEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6I66is", scHandlerID, clientID, oldChannelID, newChannelID, visibility, message));
+    emit(new Payload(__func__, "6I66is", scHandlerID, clientID, oldChannelID, newChannelID, visibility, message));
 }
 
 /**
@@ -226,7 +226,7 @@ void Event::onClientMoveTimeoutEvent(uint64 scHandlerID, anyID clientID, uint64 
  */
 void Event::onClientMoveMovedEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
+    emit(new Payload(__func__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
 }
 
 /**
@@ -234,7 +234,7 @@ void Event::onClientMoveMovedEvent(uint64 scHandlerID, anyID clientID, uint64 ol
  */
 void Event::onClientKickFromChannelEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
+    emit(new Payload(__func__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
 }
 
 /**
@@ -242,7 +242,7 @@ void Event::onClientKickFromChannelEvent(uint64 scHandlerID, anyID clientID, uin
  */
 void Event::onClientKickFromServerEvent(uint64 scHandlerID, anyID clientID, uint64 oldChannelID, uint64 newChannelID, int visibility, anyID invokerID, const char* invokerName, const char* invokerUID, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
+    emit(new Payload(__func__, "6I66iIsss", scHandlerID, clientID, oldChannelID, newChannelID, visibility, invokerID, invokerName, invokerUID, message));
 }
 
 /**
@@ -250,7 +250,7 @@ void Event::onClientKickFromServerEvent(uint64 scHandlerID, anyID clientID, uint
  */
 void Event::onClientIDsEvent(uint64 scHandlerID, const char* clientUID, anyID clientID, const char* clientName)
 {
-    emit(new Payload(__FUNCTION__, "6sIs", scHandlerID, clientUID, clientID, clientName));
+    emit(new Payload(__func__, "6sIs", scHandlerID, clientUID, clientID, clientName));
 }
 
 /**
@@ -258,7 +258,7 @@ void Event::onClientIDsEvent(uint64 scHandlerID, const char* clientUID, anyID cl
  */
 void Event::onClientIDsFinishedEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -266,7 +266,7 @@ void Event::onClientIDsFinishedEvent(uint64 scHandlerID)
  */
 void Event::onServerEditedEvent(uint64 scHandlerID, anyID invokerID, const char* invokerName, const char* invokerUID)
 {
-    emit(new Payload(__FUNCTION__, "6Iss", scHandlerID, invokerID, invokerName, invokerUID));
+    emit(new Payload(__func__, "6Iss", scHandlerID, invokerID, invokerName, invokerUID));
 }
 
 /**
@@ -274,7 +274,7 @@ void Event::onServerEditedEvent(uint64 scHandlerID, anyID invokerID, const char*
  */
 void Event::onServerUpdatedEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -282,7 +282,7 @@ void Event::onServerUpdatedEvent(uint64 scHandlerID)
  */
 void Event::onServerErrorEvent(uint64 scHandlerID, const char* errorMessage, unsigned int error, const char* returnCode, const char* extraMessage)
 {
-    emit(new Payload(__FUNCTION__, "6sIss", scHandlerID, errorMessage, error, returnCode, extraMessage));
+    emit(new Payload(__func__, "6sIss", scHandlerID, errorMessage, error, returnCode, extraMessage));
 }
 
 /**
@@ -290,7 +290,7 @@ void Event::onServerErrorEvent(uint64 scHandlerID, const char* errorMessage, uns
  */
 void Event::onServerStopEvent(uint64 scHandlerID, const char* shutdownMessage)
 {
-    emit(new Payload(__FUNCTION__, "6s", scHandlerID, shutdownMessage));
+    emit(new Payload(__func__, "6s", scHandlerID, shutdownMessage));
 }
 
 /**
@@ -298,7 +298,7 @@ void Event::onServerStopEvent(uint64 scHandlerID, const char* shutdownMessage)
  */
 void Event::onTextMessageEvent(uint64 scHandlerID, anyID targetMode, anyID toID, anyID fromID, const char* fromName, const char* fromUID, const char* message)
 {
-    emit(new Payload(__FUNCTION__, "6IIIsss", scHandlerID, targetMode, toID, fromID, fromName, fromUID, message));
+    emit(new Payload(__func__, "6IIIsss", scHandlerID, targetMode, toID, fromID, fromName, fromUID, message));
 }
 
 /**
@@ -306,7 +306,7 @@ void Event::onTextMessageEvent(uint64 scHandlerID, anyID targetMode, anyID toID,
  */
 void Event::onTalkStatusChangeEvent(uint64 scHandlerID, int status, int isWhisper, anyID clientID)
 {
-    emit(new Payload(__FUNCTION__, "6iiI", scHandlerID, status, isWhisper, clientID));
+    emit(new Payload(__func__, "6iiI", scHandlerID, status, isWhisper, clientID));
 }
 
 /**
@@ -314,7 +314,7 @@ void Event::onTalkStatusChangeEvent(uint64 scHandlerID, int status, int isWhispe
  */
 void Event::onIgnoredWhisperEvent(uint64 scHandlerID, anyID clientID)
 {
-    emit(new Payload(__FUNCTION__, "6I", scHandlerID, clientID));
+    emit(new Payload(__func__, "6I", scHandlerID, clientID));
 }
 
 /**
@@ -322,7 +322,7 @@ void Event::onIgnoredWhisperEvent(uint64 scHandlerID, anyID clientID)
  */
 void Event::onConnectionInfoEvent(uint64 scHandlerID, anyID clientID)
 {
-    emit(new Payload(__FUNCTION__, "6I", scHandlerID, clientID));
+    emit(new Payload(__func__, "6I", scHandlerID, clientID));
 }
 
 /**
@@ -330,7 +330,7 @@ void Event::onConnectionInfoEvent(uint64 scHandlerID, anyID clientID)
  */
 void Event::onServerConnectionInfoEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -338,7 +338,7 @@ void Event::onServerConnectionInfoEvent(uint64 scHandlerID)
  */
 void Event::onChannelSubscribeEvent(uint64 scHandlerID, uint64 channelID)
 {
-    emit(new Payload(__FUNCTION__, "66", scHandlerID, channelID));
+    emit(new Payload(__func__, "66", scHandlerID, channelID));
 }
 
 /**
@@ -346,7 +346,7 @@ void Event::onChannelSubscribeEvent(uint64 scHandlerID, uint64 channelID)
  */
 void Event::onChannelSubscribeFinishedEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -354,7 +354,7 @@ void Event::onChannelSubscribeFinishedEvent(uint64 scHandlerID)
  */
 void Event::onChannelUnsubscribeEvent(uint64 scHandlerID, uint64 channelID)
 {
-    emit(new Payload(__FUNCTION__, "66", scHandlerID, channelID));
+    emit(new Payload(__func__, "66", scHandlerID, channelID));
 }
 
 /**
@@ -362,7 +362,7 @@ void Event::onChannelUnsubscribeEvent(uint64 scHandlerID, uint64 channelID)
  */
 void Event::onChannelUnsubscribeFinishedEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -370,7 +370,7 @@ void Event::onChannelUnsubscribeFinishedEvent(uint64 scHandlerID)
  */
 void Event::onChannelDescriptionUpdateEvent(uint64 scHandlerID, uint64 channelID)
 {
-    emit(new Payload(__FUNCTION__, "66", scHandlerID, channelID));
+    emit(new Payload(__func__, "66", scHandlerID, channelID));
 }
 
 /**
@@ -378,7 +378,7 @@ void Event::onChannelDescriptionUpdateEvent(uint64 scHandlerID, uint64 channelID
  */
 void Event::onChannelPasswordChangedEvent(uint64 scHandlerID, uint64 channelID)
 {
-    emit(new Payload(__FUNCTION__, "66", scHandlerID, channelID));
+    emit(new Payload(__func__, "66", scHandlerID, channelID));
 }
 
 /**
@@ -386,7 +386,7 @@ void Event::onChannelPasswordChangedEvent(uint64 scHandlerID, uint64 channelID)
  */
 void Event::onPlaybackShutdownCompleteEvent(uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "6", scHandlerID));
+    emit(new Payload(__func__, "6", scHandlerID));
 }
 
 /**
@@ -394,7 +394,7 @@ void Event::onPlaybackShutdownCompleteEvent(uint64 scHandlerID)
  */
 void Event::onSoundDeviceListChangedEvent(const char* modeID, int type)
 {
-    emit(new Payload(__FUNCTION__, "si", modeID, type));
+    emit(new Payload(__func__, "si", modeID, type));
 }
 
 /**
@@ -402,7 +402,7 @@ void Event::onSoundDeviceListChangedEvent(const char* modeID, int type)
  */
 void Event::onUserLoggingMessageEvent(const char* message, int logLevel, const char* logChannel, uint64 logID, const char* logTime, const char* formattedString)
 {
-    emit(new Payload(__FUNCTION__, "sis6ss", message, logLevel, logChannel, logID, logTime, formattedString));
+    emit(new Payload(__func__, "sis6ss", message, logLevel, logChannel, logID, logTime, formattedString));
 }
 
 /**
@@ -410,7 +410,7 @@ void Event::onUserLoggingMessageEvent(const char* message, int logLevel, const c
  */
 void Event::onFileTransferStatusEvent(anyID transferID, unsigned int status, const char* statusMessage, uint64 remoteSize, uint64 scHandlerID)
 {
-    emit(new Payload(__FUNCTION__, "IIs66", (unsigned int) transferID, status, statusMessage, remoteSize, scHandlerID));
+    emit(new Payload(__func__, "IIs66", (unsigned int) transferID, status, statusMessage, remoteSize, scHandlerID));
 }
 
 /**
@@ -418,7 +418,7 @@ void Event::onFileTransferStatusEvent(anyID transferID, unsigned int status, con
  */
 void Event::onFileListEvent(uint64 scHandlerID, uint64 channelID, const char* path, const char* name, uint64 size, uint64 datetime, int type, uint64 incompleteSize, const char* returnCode)
 {
-    emit(new Payload(__FUNCTION__, "66ss66i6s", scHandlerID, channelID, path, name, size, datetime, type, incompleteSize, returnCode));
+    emit(new Payload(__func__, "66ss66i6s", scHandlerID, channelID, path, name, size, datetime, type, incompleteSize, returnCode));
 }
 
 /**
@@ -426,12 +426,12 @@ void Event::onFileListEvent(uint64 scHandlerID, uint64 channelID, const char* pa
  */
 void Event::onFileListFinishedEvent(uint64 scHandlerID, uint64 channelID, const char* path)
 {
-    emit(new Payload(__FUNCTION__, "66s", scHandlerID, channelID, path));
+    emit(new Payload(__func__, "66s", scHandlerID, channelID, path));
 }
 /**
  * TeamSpeak 3 ClientLib event triggered when receiving file/directoy information.
  */
 void Event::onFileInfoEvent(uint64 scHandlerID, uint64 channelID, const char* name, uint64 size, uint64 datetime)
 {
-    emit(new Payload(__FUNCTION__, "66s66", scHandlerID, channelID, name, size, datetime));
+    emit(new Payload(__func__, "66s66", scHandlerID, channelID, name, size, datetime));
 }
