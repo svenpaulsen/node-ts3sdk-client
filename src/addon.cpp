@@ -15,6 +15,7 @@
 #include "identity.h"
 #include "log.h"
 #include "playback.h"
+#include "preprocessor.h"
 #include "server.h"
 
 /**
@@ -60,6 +61,11 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "playWaveFile",                     Playback::PlayWaveFile);
     Nan::SetMethod(exports, "getPlaybackDeviceList",            Playback::ListDevices);
     Nan::SetMethod(exports, "getPlaybackModeList",              Playback::ListModes);
+
+    // preprocessor
+    Nan::SetMethod(exports, "getPreProcessorInfoValueFloat", Preprocessor::GetInfoValue);
+    Nan::SetMethod(exports, "getPreProcessorConfigValue",    Preprocessor::GetConfigValue);
+    Nan::SetMethod(exports, "setPreProcessorConfigValue",    Preprocessor::SetConfigValue);
     
     // client
     Nan::SetMethod(exports, "getClientID",                   Client::GetOwnID);
