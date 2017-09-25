@@ -1,0 +1,69 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Querying available modes and devices</title><link rel="stylesheet" href="ts3doc.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="index.html" title="TeamSpeak 3 Client SDK Developer Manual"><link rel="up" href="ar01s13.html" title="Using playback and capture modes and devices"><link rel="prev" href="ar01s13.html" title="Using playback and capture modes and devices"><link rel="next" href="ar01s13s03.html" title="Checking current modes and devices"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><img id="logo" src="images/logo.png"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Querying available modes and devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s13.html"><img src="images/prev.png" alt="Prev"></a> </td><th width="60%" align="center">Using playback and capture modes and devices</th><td width="20%" align="right"> <a accesskey="n" href="ar01s13s03.html"><img src="images/next.png" alt="Next"></a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="querydevice"></a>Querying available modes and devices</h3></div></div></div><p>Various playback and capture modes are available: DirectSound on all Windows platforms,  Windows Audio Session API for Windows Vista and Windows 7; Alsa and PulseAudio on Linux; CoreAudio on Mac OS X.</p><p> Available device names may differ depending on the current mode.</p><p>The default playback and capture modes can be queried with:
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getDefaultPlayBackMode</b>(</code></td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>char** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57867616"></a>
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getDefaultCaptureMode</b>(</code></td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>char** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57871152"></a></p><div class="itemizedlist"><ul type="disc"><li><p><em class="parameter"><code>result</code></em></p><p>Address of a variable that receives the default playback or capture mode. The value can be used as parameter for the functions querying and opening devices. Unless the function returns an error, the string must be released using <a class="link" href="ar01s28.html#freememory"><code class="function">ts3client_freeMemory</code></a>.</p></li></ul></div><p>Returns <em class="structfield"><code>ERROR_ok</code></em> on success, otherwise an error code as defined in <code class="filename">public_errors.h</code>.</p><div class="literallayout"><p><br>
+</p></div><p>All available playback and capture modes can be queried with:
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getPlaybackModeList</b>(</code></td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>char*** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57880896"></a>
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getCaptureModeList</b>(</code></td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>char*** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57884432"></a></p><div class="itemizedlist"><ul type="disc"><li><p><em class="parameter"><code>result</code></em></p><p>Address of a variable that receives a NULL-terminated array of C-strings listing available playback or capture modes.</p><p>Unless the function returns an error, the caller must release each element of the array (the C-string) and finally the complete array with <a class="link" href="ar01s28.html#freememory"><code class="function">ts3client_freeMemory</code></a>.</p></li></ul></div><p>Returns <em class="structfield"><code>ERROR_ok</code></em> on success, otherwise an error code as defined in <code class="filename">public_errors.h</code>. In case of an error, the result array is uninitialized and must not be accessed or released.</p><p>Example to query all available playback modes:</p><pre class="programlisting">char** array;
+
+if(ts3client_getPlaybackModeList(&amp;array) == ERROR_ok) {
+    for(int i=0; array[i] != NULL; ++i) {
+        printf("Mode: %s\n", array[i]);
+        ts3client_freeMemory(array[i]);  // Free C-string
+    }
+    ts3client_freeMemory(array);  // Free the array
+}</pre><div class="literallayout"><p><br>
+</p></div><p>Playback and capture devices available for the given mode can be listed, as well as the current operating systems default. The returned device values can be used to <a class="link" href="ar01s13.html#initdevice" title="Initializing modes and devices">initialize</a> the devices.</p><p>To query the default playback and capture device, call
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getDefaultPlaybackDevice</b>(</code></td><td><var class="pdparam">modeID</var>, </td><td> </td></tr><tr><td> </td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>const char* <var class="pdparam">modeID</var></code>;<br><code>char*** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57898368"></a>
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getDefaultCaptureDevice</b>(</code></td><td><var class="pdparam">modeID</var>, </td><td> </td></tr><tr><td> </td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>const char* <var class="pdparam">modeID</var></code>;<br><code>char*** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57902784"></a></p><div class="itemizedlist"><ul type="disc"><li><p><em class="parameter"><code>mode</code></em></p><p>Defines the playback/capture mode to use. For different modes there might be different default devices. Valid modes are returned by <code class="function">ts3client_getDefaultPlayBackMode</code> / <code class="function">ts3client_getDefaultCaptureMode</code> and <code class="function">ts3client_getPlaybackModeList</code> / <code class="function">ts3client_getCaptureModeList</code>.</p></li><li><p><em class="parameter"><code>result</code></em></p><p>Address of a variable that receives an array of two C-strings. The first element contains the device name, the second the device ID.</p><p>Unless the function returns an error, the caller must free the two array elements and the complete array with <a class="link" href="ar01s28.html#freememory"><code class="function">ts3client_freeMemory</code></a>.</p></li></ul></div><p>Returns <em class="structfield"><code>ERROR_ok</code></em> on success, otherwise an error code as defined in <code class="filename">public_errors.h</code>. In case of an error, the result array is uninitialized and must not be released.</p><p>Example to query the default playback device:</p><pre class="programlisting">char* defaultMode;
+
+/* Get default playback mode */
+if(ts3client_getDefaultPlayBackMode(&amp;defaultMode) == ERROR_ok) {
+    char** defaultPlaybackDevice;
+
+    /* Get default playback device */
+    if(ts3client_getDefaultPlaybackDevice(defaultMode, &amp;defaultPlaybackDevice) == ERROR_ok) {
+        printf("Default playback device name: %s\n", defaultPlaybackDevice[0]);  /* First element: Device name */
+        printf("Default playback device ID: %s\n",   defaultPlaybackDevice[1]);  /* Second element: Device ID */
+
+        /* Release the two array elements and the array */
+        ts3client_freeMemory(defaultPlaybackDevice[0]);
+        ts3client_freeMemory(defaultPlaybackDevice[1]);
+        ts3client_freeMemory(defaultPlaybackDevice);
+    } else {
+        printf("Failed to get default playback device\n");
+    }
+} else {
+    printf("Failed to get default playback mode\n");
+}</pre><div class="literallayout"><p><br>
+</p></div><p>To get a list of all available playback and capture devices for the specified mode, call
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getPlaybackDeviceList</b>(</code></td><td><var class="pdparam">modeID</var>, </td><td> </td></tr><tr><td> </td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>const char* <var class="pdparam">modeID</var></code>;<br><code>char**** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57921984"></a>
+</p><div class="funcsynopsis"><table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table"><tr><td><code class="funcdef">unsigned int <b class="fsfunc">ts3client_getCaptureDeviceList</b>(</code></td><td><var class="pdparam">modeID</var>, </td><td> </td></tr><tr><td> </td><td><var class="pdparam">result</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>const char* <var class="pdparam">modeID</var></code>;<br><code>char**** <var class="pdparam">result</var></code>;</div><div class="funcprototype-spacer"> </div></div><p>
+<a class="indexterm" name="idp57926400"></a></p><div class="itemizedlist"><ul type="disc"><li><p><em class="parameter"><code>modeID</code></em></p><p>Defines the playback/capture mode to use. For different modes there might be different device lists. Valid modes are returned by <code class="function">ts3client_getDefaultPlayBackMode</code> / <code class="function">ts3client_getDefaultCaptureMode</code> and <code class="function">ts3client_getPlaybackModeList</code> / <code class="function">ts3client_getCaptureModeList</code>.</p></li><li><p><em class="parameter"><code>result</code></em></p><p>Address of a variable that receives a NULL-terminated array <span class="returnvalue">{ { char* deviceName, char* deviceID }, { char* deviceName, char* deviceID }, ... , NULL }</span>.</p><p>Unless the function returns an error, the elements of the array and the array itself need to be freed using <a class="link" href="ar01s28.html#freememory"><code class="function">ts3client_freeMemory</code></a>.</p></li></ul></div><p>Returns <em class="structfield"><code>ERROR_ok</code></em> on success, otherwise an error code as defined in <code class="filename">public_errors.h</code>. In case of an error, the result array is uninitialized and must not be released.</p><p>Example to query all available playback devices:</p><pre class="programlisting">char* defaultMode;
+
+if(ts3client_getDefaultPlayBackMode(&amp;defaultMode) == ERROR_ok) {
+    char*** array;
+
+    if(ts3client_getPlaybackDeviceList(defaultMode, &amp;array) == ERROR_ok) {
+        for(int i=0; array[i] != NULL; ++i) {
+            printf("Playback device name: %s\n", array[i][0]);  /* First element: Device name */
+            printf("Playback device ID: %s\n",   array[i][1]);  /* Second element: Device ID */
+
+            /* Free element */
+            ts3client_freeMemory(array[i][0]);
+            ts3client_freeMemory(array[i][1]);
+            ts3client_freeMemory(array[i]);
+        }
+        ts3client_freeMemory(array);  /* Free complete array */
+    } else {
+        printf("Error getting playback device list\n");
+    }
+} else {
+    printf("Error getting default playback mode\n");
+}</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s13.html"><img src="images/prev.png" alt="Prev"></a> </td><td width="20%" align="center"><a accesskey="u" href="ar01s13.html"><img src="images/up.png" alt="Up"></a></td><td width="40%" align="right"> <a accesskey="n" href="ar01s13s03.html"><img src="images/next.png" alt="Next"></a></td></tr><tr><td width="40%" align="left" valign="top">Using playback and capture modes and devices </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a></td><td width="40%" align="right" valign="top"> Checking current modes and devices</td></tr></table></div></body></html>

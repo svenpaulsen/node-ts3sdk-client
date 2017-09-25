@@ -1,0 +1,50 @@
+/*
+ * Stylesheet for TeamSpeak 3 SDK documentation
+ */
+
+img {
+  border: 0;
+}
+
+div.note {
+  border-left: solid #d5dee3 20px;
+  border-right: solid #d5dee3 20px;
+  margin-left: 5%;
+  margin-right: 10%;
+  padding: 5px;
+}
+
+div.caution {
+  border-left: solid #d5dee3 20px;
+  border-right: solid #d5dee3 20px;
+  margin-left: 5%;
+  margin-right: 10%;
+  padding: 5px;
+}
+
+div.important {
+  border-left: solid #d5dee3 20px;
+  border-right: solid #d5dee3 20px;
+  margin-left: 5%;
+  margin-right: 10%;
+  padding: 5px;
+}
+
+.returnvalue { 
+  font-family: monospace;
+  font-style: italic;
+  font-size: larger;
+}
+
+p.legaltext {
+  font-size: 85%;
+}
+
+p.larger {
+  font-size: 125%;
+}
+
+#logo { 
+  position: absolute;
+  left: 80%;
+}

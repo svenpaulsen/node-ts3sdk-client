@@ -1,0 +1,47 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>FAQ</title><link rel="stylesheet" href="ts3doc.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="index.html" title="TeamSpeak 3 Client SDK Developer Manual"><link rel="up" href="index.html" title="TeamSpeak 3 Client SDK Developer Manual"><link rel="prev" href="ar01s29.html" title="Filetransfer"><link rel="next" href="ix01.html" title="Index"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><img id="logo" src="images/logo.png"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">FAQ</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s29.html"><img src="images/prev.png" alt="Prev"></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ix01.html"><img src="images/next.png" alt="Next"></a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="faq"></a>FAQ</h2></div></div></div><a class="indexterm" name="idp60259008"></a><div class="itemizedlist"><ul type="disc"><li><p><a class="link" href="ar01s30.html#faq_1" title="How to implement Push-To-Talk?">How to implement Push-To-Talk?</a></p></li><li><p><a class="link" href="ar01s30.html#faq_2" title="How to adjust the volume?">How to adjust the volume?</a></p></li><li><p><a class="link" href="ar01s30.html#faq_3" title="How to talk across channels?">How to talk across channels?</a></p></li></ul></div><div class="literallayout"><p><br>
+</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="faq_1"></a>How to implement Push-To-Talk?</h3></div></div></div><p>Push-To-Talk should be implemented by toggling the client variable <em class="structfield"><code>CLIENT_INPUT_DEACTIVATED</code></em> using the function <a class="link" href="ar01s22.html#setclientselfvarasint"><code class="function">ts3client_setClientSelfVariableAsInt</code></a>. The variable can be set to the following values (see the enum <span class="structname">InputDeactivationStatus</span> in <code class="filename">public_definitions.h</code>):<a class="indexterm" name="idp60269024"></a><a class="indexterm" name="idp60269712"></a></p><div class="itemizedlist"><ul type="disc"><li><p><em class="structfield"><code>INPUT_ACTIVE</code></em></p></li><li><p><em class="structfield"><code>INPUT_DEACTIVATED</code></em></p></li></ul></div><p>For Push-To-Talk toggle between <em class="structfield"><code>INPUT_ACTIVE</code></em> (talking) and <em class="structfield"><code>INPUT_DEACTIVATED</code></em> (not talking).</p><p>Example code:</p><pre class="programlisting">unsigned int error;
+bool shouldTalk;
+
+shouldTalk = isPushToTalkButtonPressed();  // Your key detection implementation
+if((error = ts3client_setClientSelfVariableAsInt(scHandlerID, CLIENT_INPUT_DEACTIVATED,
+                                                 shouldTalk ? INPUT_ACTIVE : INPUT_DEACTIVATED))
+    != ERROR_ok) {
+    char* errorMsg;
+    if(ts3client_getErrorMessage(error, &amp;errorMsg) != ERROR_ok) {
+        printf("Error toggling push-to-talk: %s\n", errorMsg);
+        ts3client_freeMemory(errorMsg);
+    }
+    return;
+}
+
+if(ts3client_flushClientSelfUpdates(scHandlerID, NULL) != ERROR_ok) {
+    char* errorMsg;
+    if(ts3client_getErrorMessage(error, &amp;errorMsg) != ERROR_ok) {
+        printf("Error flushing after toggling push-to-talk: %s\n", errorMsg);
+        ts3client_freeMemory(errorMsg);
+    }
+}</pre><p>It is not necessary to close and reopen the capture device to implement Push-To-Talk.</p><p>Basically it would be possible to toggle <em class="structfield"><code>CLIENT_INPUT_MUTED</code></em> as well, but the advantage of <em class="structfield"><code>CLIENT_INPUT_DEACTIVATED</code></em> is that the change is not propagated to the server and other connected clients, thus saving network traffic. <em class="structfield"><code>CLIENT_INPUT_MUTED</code></em> should instead be used for manually muting the microphone when using Voice Activity Detection instead of Push-To-Talk.</p><p>If you need to query the current muted state, use <a class="link" href="ar01s22.html#getclientselfvarasint"><code class="function">ts3client_getClientSelfVariableAsInt</code></a>:</p><pre class="programlisting">int hardwareStatus, deactivated, muted;
+
+if(ts3client_getClientSelfVariableAsInt(scHandlerID, CLIENT_INPUT_HARDWARE,
+                                        &amp;hardwareStatus) != ERROR_ok) {
+    /* Handle error */
+}
+if(ts3client_getClientSelfVariableAsInt(scHandlerID, CLIENT_INPUT_DEACTIVATED,
+                                        &amp;deactivated) != ERROR_ok) {
+    /* Handle error */
+}
+if(ts3client_getClientSelfVariableAsInt(scHandlerID, CLIENT_INPUT_MUTED,
+                                        &amp;muted) != ERROR_ok) {
+    /* Handle error */
+}
+
+if(hardwareStatus == HARDWAREINPUT_DISABLED) {
+    /* No capture device available */
+}
+if(deactivated == INPUT_DEACTIVATED) {
+    /* Input was deactivated for Push-To-Talk (not propagated to server) */
+}
+if(muted == MUTEINPUT_MUTED) {
+    /* Input was muted (propagated to server) */
+}</pre><p>When using Push-To-Talk, you should deactivate Voice Activity Detection in the <a class="link" href="ar01s16.html" title="Preprocessor options">preprocessor</a> or keep the VAD level very low. To deactivate VAD, use:</p><pre class="programlisting">ts3client_setPreProcessorConfigValue(serverConnectionHandlerID, "vad", "false");</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="faq_2"></a>How to adjust the volume?</h3></div></div></div><p><span class="emphasis"><em>Output volume</em></span></p><p>The global voice output volume can be adjusted by changing the &#8220;<span class="quote">volume_modifier</span>&#8221; <a class="link" href="ar01s17.html" title="Playback options">playback option</a> using the function <code class="function">ts3client_setPlaybackConfigValue</code>. The value is in decibel, so 0 is no modification, negative values make the signal quieter and positive values louder.<a class="indexterm" name="idp60288880"></a><a class="indexterm" name="idp60289872"></a></p><p>Example to increase the output volume by 10 decibel:
+</p><pre class="programlisting">ts3client_setPlaybackConfigValue(scHandlerID, "volume_modifier", 10);</pre><p>In addition to modifying the global output volue, the volume of individual clients can be changed with <a class="link" href="ar01s17.html#setclientvolumemodifier"><code class="function">ts3client_setClientVolumeModifier</code></a>.</p><p><span class="emphasis"><em>Input volume</em></span></p><p><a class="link" href="ar01s16.html" title="Preprocessor options">Automatic Gain Control</a> (AGC) takes care of the input volume during preprocessing automatically. Instead of modifying the input volume directly, you modify the AGC preprocessor settings with <code class="function">setProProcessorConfigValue</code>.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="faq_3"></a>How to talk across channels?</h3></div></div></div><p>Generally clients can only talk to other clients in the same channel. However, for specific scenarios this can be overruled using <a class="link" href="ar01s22.html#whisper" title="Whisper lists">whisper lists.</a>. This feature allows specific clients to temporarily talk to other clients or channels outside of their own channel. While whispering, talking to the own channel is disabled.</p><p>An example for a scenario where whisper may be useful would be a team consisting of a number of squads. Each squad is assigned to one channel, so squad members can only talk to other members of the same squad. In addition, there is a team leader and squad leaders, who want to communicate accross the squad channels. This can be implemented with whispering, so the team leader could broadcast to all squad leaders, or a squad leader could briefly report to the team leader temporarily sending his voice data to him instead of the squad leaders channel.</p><p>This mechanism is powerful and flexible allowing the SDK developer to handle more complex scenarios overruling the standard behaviour where clients can only talk to other clients within the same channel.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s29.html"><img src="images/prev.png" alt="Prev"></a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ix01.html"><img src="images/next.png" alt="Next"></a></td></tr><tr><td width="40%" align="left" valign="top">Filetransfer </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a></td><td width="40%" align="right" valign="top"> Index</td></tr></table></div></body></html>
