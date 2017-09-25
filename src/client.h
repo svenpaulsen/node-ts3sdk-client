@@ -34,6 +34,10 @@ public:
     static NAN_METHOD(SendMessage);
     static NAN_METHOD(SetRecordingStatus);
     static NAN_METHOD(UnsetRecordingStatus);
+    static NAN_METHOD(SetWhisperList);
+    static NAN_METHOD(AllowWhispersFrom);
+    static NAN_METHOD(PreventWhispersFrom);
+    static NAN_METHOD(SetVolumeModifier);
 };
 
 #endif // ADDON_CLIENT_H

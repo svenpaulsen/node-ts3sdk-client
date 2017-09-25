@@ -535,11 +535,11 @@ NAN_METHOD(Client::FlushUpdates)
  */
 NAN_METHOD(Client::Mute)
 {
-    unsigned int       error;
-    uint64             scHandlerID;
-    std::vector<anyID> clients;
-    char*              returnCode;
-    char*              defretCode = Helper::createReturnCode();
+    unsigned int              error;
+    uint64                    scHandlerID;
+    std::vector<unsigned int> clients;
+    char*                     returnCode;
+    char*                     defretCode = Helper::createReturnCode();
     
     if((error = Argument::num(info, 2, 3)) != ERROR_ok)
     {
@@ -550,13 +550,18 @@ NAN_METHOD(Client::Mute)
     {
         return Error::throwException(error);
     }
+
+    if((error = Argument::get(info, 1, clients, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
     
     if((error = Argument::get(info, 2, &returnCode, defretCode)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
     
-    if((error = ts3client_requestMuteClients(scHandlerID, clients.data(), returnCode)) != ERROR_ok)
+    if((error = ts3client_requestMuteClients(scHandlerID, (anyID*) clients.data(), returnCode)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
@@ -572,11 +577,11 @@ NAN_METHOD(Client::Mute)
  */
 NAN_METHOD(Client::Unmute)
 {
-    unsigned int       error;
-    uint64             scHandlerID;
-    std::vector<anyID> clients;
-    char*              returnCode;
-    char*              defretCode = Helper::createReturnCode();
+    unsigned int              error;
+    uint64                    scHandlerID;
+    std::vector<unsigned int> clients;
+    char*                     returnCode;
+    char*                     defretCode = Helper::createReturnCode();
     
     if((error = Argument::num(info, 2, 3)) != ERROR_ok)
     {
@@ -587,13 +592,18 @@ NAN_METHOD(Client::Unmute)
     {
         return Error::throwException(error);
     }
+
+    if((error = Argument::get(info, 1, clients, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
     
     if((error = Argument::get(info, 2, &returnCode, defretCode)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
     
-    if((error = ts3client_requestUnmuteClients(scHandlerID, clients.data(), returnCode)) != ERROR_ok)
+    if((error = ts3client_requestUnmuteClients(scHandlerID, (anyID*) clients.data(), returnCode)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
@@ -845,6 +855,156 @@ NAN_METHOD(Client::UnsetRecordingStatus)
     }
     
     if((error = ts3client_stopVoiceRecording(scHandlerID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
+
+/**
+ * Wrapper for ts3client_requestClientSetWhisperList().
+ */
+NAN_METHOD(Client::SetWhisperList)
+{
+    unsigned int              error;
+    uint64                    scHandlerID;
+    unsigned int              clientID;
+    std::vector<uint64>       channels;
+    std::vector<unsigned int> clients;
+    char*                     returnCode;
+    char*                     defretCode = Helper::createReturnCode();
+    
+    if((error = Argument::num(info, 1, 5)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &clientID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+
+    if((error = Argument::get(info, 2, channels, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+
+    if((error = Argument::get(info, 3, clients, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 4, &returnCode, defretCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_requestClientSetWhisperList(scHandlerID, clientID, channels.empty() ? nullptr : channels.data(), clients.empty() ? nullptr : (anyID*) clients.data(), returnCode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
+    
+    free(returnCode);
+    free(defretCode);
+}
+
+/**
+ * Wrapper for ts3client_allowWhispersFrom().
+ */
+NAN_METHOD(Client::AllowWhispersFrom)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int clientID;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &clientID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_allowWhispersFrom(scHandlerID, clientID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
+
+/**
+ * Wrapper for ts3client_removeFromAllowedWhispersFrom().
+ */
+NAN_METHOD(Client::PreventWhispersFrom)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int clientID;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &clientID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_removeFromAllowedWhispersFrom(scHandlerID, clientID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
+
+/**
+ * Wrapper for ts3client_setClientVolumeModifier().
+ */
+NAN_METHOD(Client::SetVolumeModifier)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    unsigned int clientID;
+    float        val;
+    
+    if((error = Argument::num(info, 3)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &clientID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+
+    if((error = Argument::get(info, 2, &val, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_setClientVolumeModifier(scHandlerID, clientID, val)) != ERROR_ok)
     {
         return Error::throwException(error);
     }

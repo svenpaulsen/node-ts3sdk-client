@@ -65,6 +65,8 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "getCurrentPlaybackDeviceName",     Playback::GetCurrentDevice);
     Nan::SetMethod(exports, "getCurrentPlaybackMode",           Playback::GetCurrentMode);
     Nan::SetMethod(exports, "getPlaybackModeList",              Playback::ListModes);
+    Nan::SetMethod(exports, "getPlaybackConfigValueAsFloat",    Playback::GetConfigValue);
+    Nan::SetMethod(exports, "setPlaybackConfigValue",           Playback::SetConfigValue);
 
     // preprocessor
     Nan::SetMethod(exports, "getPreProcessorInfoValueFloat", Preprocessor::GetInfoValue);
@@ -95,7 +97,11 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "requestSendPrivateTextMsg",     Client::SendMessage);
     Nan::SetMethod(exports, "startVoiceRecording",           Client::SetRecordingStatus);
     Nan::SetMethod(exports, "stopVoiceRecording",            Client::UnsetRecordingStatus);
-    
+    Nan::SetMethod(exports, "requestClientSetWhisperList",   Client::SetWhisperList);
+    Nan::SetMethod(exports, "allowWhispersFrom",             Client::AllowWhispersFrom);
+    Nan::SetMethod(exports, "removeFromAllowedWhispersFrom", Client::PreventWhispersFrom);
+    Nan::SetMethod(exports, "setClientVolumeModifier",       Client::SetVolumeModifier);
+
     // channel
     Nan::SetMethod(exports, "getChannelList",               Channel::GetList);
     Nan::SetMethod(exports, "getChannelClientList",         Channel::GetClients);

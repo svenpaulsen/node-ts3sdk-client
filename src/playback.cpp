@@ -298,3 +298,72 @@ NAN_METHOD(Playback::ListModes)
     
     ts3client_freeMemory(modes);
 }
+
+/**
+ * Wrapper for ts3client_getPlaybackConfigValueAsFloat().
+ */
+NAN_METHOD(Playback::GetConfigValue)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        key;
+    float        val;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &key, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getPlaybackConfigValueAsFloat(scHandlerID, key, &val)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New<v8::Number>(val));
+}
+
+/**
+ * Wrapper for ts3client_setPlaybackConfigValue().
+ */
+NAN_METHOD(Playback::SetConfigValue)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        key;
+    char*        val;
+    
+    if((error = Argument::num(info, 3)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &key, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 2, &val, "")) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_setPlaybackConfigValue(scHandlerID, key, val)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}

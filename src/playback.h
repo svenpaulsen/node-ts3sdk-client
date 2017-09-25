@@ -20,6 +20,8 @@ public:
     static NAN_METHOD(GetCurrentDevice);
     static NAN_METHOD(GetCurrentMode);
     static NAN_METHOD(ListModes);
+    static NAN_METHOD(SetConfigValue);
+    static NAN_METHOD(GetConfigValue);
 };
 
 #endif // ADDON_CAPTURE_H
