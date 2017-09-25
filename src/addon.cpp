@@ -47,12 +47,14 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "identityStringToUniqueIdentifier", Identity::GetUID);
     
     // capture
-    Nan::SetMethod(exports, "openCaptureDevice",     Capture::OpenDevice);
-    Nan::SetMethod(exports, "closeCaptureDevice",    Capture::CloseDevice);
-    Nan::SetMethod(exports, "activateCaptureDevice", Capture::ActivateDevice);
-    Nan::SetMethod(exports, "setLocalTestMode",      Capture::SetLocalTestMode);
-    Nan::SetMethod(exports, "getCaptureDeviceList",  Capture::ListDevices);
-    Nan::SetMethod(exports, "getCaptureModeList",    Capture::ListModes);
+    Nan::SetMethod(exports, "openCaptureDevice",           Capture::OpenDevice);
+    Nan::SetMethod(exports, "closeCaptureDevice",          Capture::CloseDevice);
+    Nan::SetMethod(exports, "activateCaptureDevice",       Capture::ActivateDevice);
+    Nan::SetMethod(exports, "setLocalTestMode",            Capture::SetLocalTestMode);
+    Nan::SetMethod(exports, "getCaptureDeviceList",        Capture::ListDevices);
+    Nan::SetMethod(exports, "getCurrentCaptureDeviceName", Capture::GetCurrentDevice);
+    Nan::SetMethod(exports, "getCurrentCaptureMode",       Capture::GetCurrentMode);
+    Nan::SetMethod(exports, "getCaptureModeList",          Capture::ListModes);
     
     // playback
     Nan::SetMethod(exports, "openPlaybackDevice",               Playback::OpenDevice);
@@ -60,12 +62,15 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "initiateGracefulPlaybackShutdown", Playback::ShutdownDevice);
     Nan::SetMethod(exports, "playWaveFile",                     Playback::PlayWaveFile);
     Nan::SetMethod(exports, "getPlaybackDeviceList",            Playback::ListDevices);
+    Nan::SetMethod(exports, "getCurrentPlaybackDeviceName",     Playback::GetCurrentDevice);
+    Nan::SetMethod(exports, "getCurrentPlaybackMode",           Playback::GetCurrentMode);
     Nan::SetMethod(exports, "getPlaybackModeList",              Playback::ListModes);
 
     // preprocessor
     Nan::SetMethod(exports, "getPreProcessorInfoValueFloat", Preprocessor::GetInfoValue);
     Nan::SetMethod(exports, "getPreProcessorConfigValue",    Preprocessor::GetConfigValue);
     Nan::SetMethod(exports, "setPreProcessorConfigValue",    Preprocessor::SetConfigValue);
+    Nan::SetMethod(exports, "getEncodeConfigValue",          Preprocessor::GetEncoderValue);
     
     // client
     Nan::SetMethod(exports, "getClientID",                   Client::GetOwnID);
@@ -88,6 +93,8 @@ void Init(v8::Local<v8::Object> exports)
     Nan::SetMethod(exports, "requestClientKickFromChannel",  Client::KickFromChannel);
     Nan::SetMethod(exports, "requestClientKickFromServer",   Client::KickFromServer);
     Nan::SetMethod(exports, "requestSendPrivateTextMsg",     Client::SendMessage);
+    Nan::SetMethod(exports, "startVoiceRecording",           Client::SetRecordingStatus);
+    Nan::SetMethod(exports, "stopVoiceRecording",            Client::UnsetRecordingStatus);
     
     // channel
     Nan::SetMethod(exports, "getChannelList",               Channel::GetList);

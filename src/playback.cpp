@@ -205,6 +205,65 @@ NAN_METHOD(Playback::ListDevices)
 }
 
 /**
+ * Wrapper for ts3client_getCurrentPlaybackDeviceName().
+ */
+NAN_METHOD(Playback::GetCurrentDevice)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        device;
+    int          isDefault;
+    
+    if((error = Argument::num(info, 1)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getCurrentPlaybackDeviceName(scHandlerID, &device, &isDefault)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(device).ToLocalChecked());
+    
+    ts3client_freeMemory(device);
+}
+
+/**
+ * Wrapper for ts3client_getCurrentPlayBackMode().
+ */
+NAN_METHOD(Playback::GetCurrentMode)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        mode;
+    
+    if((error = Argument::num(info, 1)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getCurrentPlayBackMode(scHandlerID, &mode)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(mode).ToLocalChecked());
+    
+    ts3client_freeMemory(mode);
+}
+
+/**
  * Wrapper for ts3client_getPlaybackModeList().
  */
 NAN_METHOD(Playback::ListModes)

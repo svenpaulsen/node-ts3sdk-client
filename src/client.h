@@ -32,6 +32,8 @@ public:
     static NAN_METHOD(KickFromChannel);
     static NAN_METHOD(KickFromServer);
     static NAN_METHOD(SendMessage);
+    static NAN_METHOD(SetRecordingStatus);
+    static NAN_METHOD(UnsetRecordingStatus);
 };
 
 #endif // ADDON_CLIENT_H

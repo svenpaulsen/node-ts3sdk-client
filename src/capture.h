@@ -17,6 +17,8 @@ public:
     static NAN_METHOD(ActivateDevice);
     static NAN_METHOD(SetLocalTestMode);
     static NAN_METHOD(ListDevices);
+    static NAN_METHOD(GetCurrentDevice);
+    static NAN_METHOD(GetCurrentMode);
     static NAN_METHOD(ListModes);
 };
 

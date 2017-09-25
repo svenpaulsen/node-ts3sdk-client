@@ -112,3 +112,38 @@ NAN_METHOD(Preprocessor::SetConfigValue)
         return Error::throwException(error);
     }
 }
+
+/**
+ * Wrapper for ts3client_getEncodeConfigValue().
+ */
+NAN_METHOD(Preprocessor::GetEncoderValue)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    char*        key;
+    char*        val;
+    
+    if((error = Argument::num(info, 2)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 1, &key, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_getEncodeConfigValue(scHandlerID, key, &val)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    info.GetReturnValue().Set(Nan::New(val).ToLocalChecked());
+    
+    ts3client_freeMemory(val);
+}

@@ -801,3 +801,51 @@ NAN_METHOD(Client::SendMessage)
     free(returnCode);
     free(defretCode);
 }
+
+/**
+ * Wrapper for ts3client_startVoiceRecording().
+ */
+NAN_METHOD(Client::SetRecordingStatus)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    
+    if((error = Argument::num(info, 1)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_startVoiceRecording(scHandlerID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
+
+/**
+ * Wrapper for ts3client_stopVoiceRecording().
+ */
+NAN_METHOD(Client::UnsetRecordingStatus)
+{
+    unsigned int error;
+    uint64       scHandlerID;
+    
+    if((error = Argument::num(info, 1)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = Argument::get(info, 0, &scHandlerID, 0)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+    
+    if((error = ts3client_stopVoiceRecording(scHandlerID)) != ERROR_ok)
+    {
+        return Error::throwException(error);
+    }
+}
