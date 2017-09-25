@@ -85,6 +85,25 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 }
 
 /**
+ * Fetches a specified argument as float.
+ */
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, float* res, float def)
+{
+    if(!info[arg]->IsUndefined() && !info[arg]->IsNumber())
+    {
+        return ERROR_parameter_invalid;
+    }
+    else if(res == nullptr)
+    {
+        return ERROR_undefined;
+    }
+    
+    *res = info[arg]->IsUndefined() ? def : (float) info[arg]->NumberValue();
+    
+    return ERROR_ok;
+}
+
+/**
  * Fetches a specified argument as char*.
  */
 unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, char** res, const char* def)

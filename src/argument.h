@@ -18,6 +18,7 @@ public:
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<unsigned int> &res, unsigned int def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, unsigned int* res, unsigned int def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, int* res, int def);
+    static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, float* res, float def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, char** res, const char* def);
     static unsigned int get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<char*> &res, const char* def);
 };
