@@ -39,7 +39,7 @@ $ node examples/client_minimal.js
 
 ## Usage
 
-Please refer to the official TeamSpeak 3 SDK documentation for a list of functions and events available.
+Please refer to the official TeamSpeak 3 SDK [documentation](https://github.com/svenpaulsen/node-ts3sdk-client/blob/master/doc/client.pdf) for a list of functions and events available.
 
 ### Basics
 
