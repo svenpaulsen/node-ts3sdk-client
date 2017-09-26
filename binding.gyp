@@ -32,8 +32,6 @@
         "src/log.h",
         "src/playback.cpp",
         "src/playback.h",
-        "src/preprocessor.cpp",
-        "src/preprocessor.h",
         "src/server.cpp",
         "src/server.h",
         "src/shared.cpp",

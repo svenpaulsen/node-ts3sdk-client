@@ -265,7 +265,7 @@ NAN_METHOD(Client::GetChannelID)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     uint64       channelID;
     
     if((error = Argument::num(info, 2)) != ERROR_ok)
@@ -298,7 +298,7 @@ NAN_METHOD(Client::GetConectionInfo)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     char*        returnCode;
     char*        defretCode = Helper::createReturnCode();
     
@@ -340,7 +340,7 @@ NAN_METHOD(Client::GetVars)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     char*        returnCode;
     char*        defretCode = Helper::createReturnCode();
     
@@ -382,7 +382,7 @@ NAN_METHOD(Client::GetVarAsInt)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     unsigned int flag;
     int          variable;
     
@@ -421,7 +421,7 @@ NAN_METHOD(Client::GetVarAsUInt64)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     unsigned int flag;
     uint64       variable;
     
@@ -460,7 +460,7 @@ NAN_METHOD(Client::GetVarAsString)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     unsigned int flag;
     char*        variable;
     
@@ -535,11 +535,11 @@ NAN_METHOD(Client::FlushUpdates)
  */
 NAN_METHOD(Client::Mute)
 {
-    unsigned int              error;
-    uint64                    scHandlerID;
-    std::vector<unsigned int> clients;
-    char*                     returnCode;
-    char*                     defretCode = Helper::createReturnCode();
+    unsigned int       error;
+    uint64             scHandlerID;
+    std::vector<anyID> clients;
+    char*              returnCode;
+    char*              defretCode = Helper::createReturnCode();
     
     if((error = Argument::num(info, 2, 3)) != ERROR_ok)
     {
@@ -577,11 +577,11 @@ NAN_METHOD(Client::Mute)
  */
 NAN_METHOD(Client::Unmute)
 {
-    unsigned int              error;
-    uint64                    scHandlerID;
-    std::vector<unsigned int> clients;
-    char*                     returnCode;
-    char*                     defretCode = Helper::createReturnCode();
+    unsigned int       error;
+    uint64             scHandlerID;
+    std::vector<anyID> clients;
+    char*              returnCode;
+    char*              defretCode = Helper::createReturnCode();
     
     if((error = Argument::num(info, 2, 3)) != ERROR_ok)
     {
@@ -621,7 +621,7 @@ NAN_METHOD(Client::Move)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     uint64       channelID;
     char*        password;
     char*        returnCode;
@@ -675,7 +675,7 @@ NAN_METHOD(Client::KickFromChannel)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     char*        reason;
     char*        returnCode;
     char*        defretCode = Helper::createReturnCode();
@@ -723,7 +723,7 @@ NAN_METHOD(Client::KickFromServer)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     char*        reason;
     char*        returnCode;
     char*        defretCode = Helper::createReturnCode();
@@ -772,7 +772,7 @@ NAN_METHOD(Client::SendMessage)
     unsigned int error;
     uint64       scHandlerID;
     char*        message;
-    unsigned int clientID;
+    anyID        clientID;
     char*        returnCode;
     char*        defretCode = Helper::createReturnCode();
     
@@ -865,13 +865,13 @@ NAN_METHOD(Client::UnsetRecordingStatus)
  */
 NAN_METHOD(Client::SetWhisperList)
 {
-    unsigned int              error;
-    uint64                    scHandlerID;
-    unsigned int              clientID;
-    std::vector<uint64>       channels;
-    std::vector<unsigned int> clients;
-    char*                     returnCode;
-    char*                     defretCode = Helper::createReturnCode();
+    unsigned int        error;
+    uint64              scHandlerID;
+    anyID               clientID;
+    std::vector<uint64> channels;
+    std::vector<anyID>  clients;
+    char*               returnCode;
+    char*               defretCode = Helper::createReturnCode();
     
     if((error = Argument::num(info, 1, 5)) != ERROR_ok)
     {
@@ -903,7 +903,7 @@ NAN_METHOD(Client::SetWhisperList)
         return Error::throwException(error);
     }
     
-    if((error = ts3client_requestClientSetWhisperList(scHandlerID, clientID, channels.empty() ? nullptr : channels.data(), clients.empty() ? nullptr : (anyID*) clients.data(), returnCode)) != ERROR_ok)
+    if((error = ts3client_requestClientSetWhisperList(scHandlerID, clientID, channels.empty() ? nullptr : channels.data(), clients.empty() ? nullptr : clients.data(), returnCode)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
@@ -921,7 +921,7 @@ NAN_METHOD(Client::AllowWhispersFrom)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     
     if((error = Argument::num(info, 2)) != ERROR_ok)
     {
@@ -951,7 +951,7 @@ NAN_METHOD(Client::PreventWhispersFrom)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     
     if((error = Argument::num(info, 2)) != ERROR_ok)
     {
@@ -981,7 +981,7 @@ NAN_METHOD(Client::SetVolumeModifier)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     float        val;
     
     if((error = Argument::num(info, 3)) != ERROR_ok)

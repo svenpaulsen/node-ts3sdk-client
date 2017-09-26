@@ -28,6 +28,25 @@ unsigned int Argument::num(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 }
 
 /**
+ * Fetches a specified argument as anyID.
+ */
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, anyID* res, anyID def)
+{
+    if(!info[arg]->IsUndefined() && !info[arg]->IsInt32())
+    {
+        return ERROR_parameter_invalid;
+    }
+    else if(res == nullptr)
+    {
+        return ERROR_undefined;
+    }
+    
+    *res = info[arg]->IsUndefined() ? def : (anyID) info[arg]->Int32Value();
+    
+    return ERROR_ok;
+}
+
+/**
  * Fetches a specified argument as uint64.
  */
 unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, uint64* res, uint64 def)
@@ -139,6 +158,36 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 }
 
 /**
+ * Fetches a specified argument as anyID list.
+ */
+unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<anyID> &res, anyID def)
+{
+    if(!info[arg]->IsUndefined() && !info[arg]->IsArray())
+    {
+        return ERROR_parameter_invalid;
+    }
+    
+    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    
+    for(unsigned int i = 0; i < arr->Length(); i++)
+    {
+        res.push_back(static_cast<anyID>(info[arg]->Uint32Value()));
+    }
+    
+    if(res.empty() && def != 0)
+    {
+        res.push_back(def);
+    }
+    
+    if(!res.empty())
+    {
+        res.push_back(0);
+    }
+    
+    return ERROR_ok;
+}
+
+/**
  * Fetches a specified argument as uint64 list.
  */
 unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<uint64> &res, uint64 def)
@@ -169,7 +218,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
 }
 
 /**
- * Fetches a specified argument as anyID list.
+ * Fetches a specified argument as unsigned int list.
  */
 unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int arg, std::vector<unsigned int> &res, unsigned int def)
 {

@@ -13,7 +13,7 @@ The following prerequisites are necessary prior to using the addon:
 - [Native Addon Build Tool for Node.js](https://www.npmjs.com/package/node-gyp)
 - [Visual C++ Build Tools](https://www.npmjs.com/package/windows-build-tools) (Windows only)
 
-## Install NPM Dependencies and Building
+## Installing
 
 All dependencies can be installed via `npm`:
 
@@ -21,7 +21,7 @@ All dependencies can be installed via `npm`:
 npm install
 ```
 
-If you want to build the addon manually, issue the following commands in the root directory after cloning the repository:
+This will also build build the module for your current platform. If you want to build the addon manually, issue the following commands in the root directory after cloning the repository:
 
 ```sh
 $ node-gyp configure

@@ -335,7 +335,7 @@ NAN_METHOD(Connection::GetInfoVarAsDouble)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     unsigned int flag;
     double       variable;
     
@@ -374,7 +374,7 @@ NAN_METHOD(Connection::GetInfoVarAsString)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     unsigned int flag;
     char*        variable;
     
@@ -415,7 +415,7 @@ NAN_METHOD(Connection::CleanupInfo)
 {
     unsigned int error;
     uint64       scHandlerID;
-    unsigned int clientID;
+    anyID        clientID;
     
     if((error = Argument::num(info, 2)) != ERROR_ok)
     {
