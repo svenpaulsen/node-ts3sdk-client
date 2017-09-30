@@ -54,11 +54,13 @@
         }],
         ["OS==\"linux\" and target_arch==\"x64\"", {
           "libraries": [
+            "-Wl,-rpath,<(module_root_dir)/bin/linux_amd64",
             "<(module_root_dir)/bin/linux_amd64/libts3client.so",
           ]
         }],
         ["OS==\"linux\" and target_arch!=\"x64\"", {
           "libraries": [
+            "-Wl,-rpath,<(module_root_dir)/bin/linux_x86",
             "<(module_root_dir)/bin/linux_x86/libts3client.so",
           ]
         }],
