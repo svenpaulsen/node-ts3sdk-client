@@ -10,9 +10,7 @@ const path = require('path');
 
 try
 {
-  let bindings = getBindingsPath();
-
-  module.exports = require(bindings + '.node');
+  module.exports = require('./bin/' + getPlatform() + '/ts3client.node');
 
   module.exports.getBindingsPath  = getBindingsPath;
   module.exports.getResourcePath  = getResourcePath;
@@ -184,7 +182,7 @@ catch(err)
 
 function getBindingsPath()
 {
-  return '.' + path.sep + path.relative(__dirname, getResourcePath()) + path.sep + 'ts3client';
+  return getResourcePath() + 'ts3client.node';
 }
 
 function getResourcePath()
