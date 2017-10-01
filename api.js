@@ -187,8 +187,8 @@ function getBindingsPath()
 
 function getResourcePath()
 {
-  let relPath = './bin/' + getPlatform();
-  let absPath = path.resolve(path.join(__dirname, 'node_modules/node-ts3sdk-client', relPath));
+  var relPath = './bin/' + getPlatform();
+  var absPath = path.resolve(path.join(__dirname, 'node_modules/node-ts3sdk-client', relPath));
 
   try
   {
