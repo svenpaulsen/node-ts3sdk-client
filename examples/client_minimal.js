@@ -22,13 +22,13 @@ var ts3client = require('../api.js');
  */
 ts3client.on('onConnectStatusChangeEvent', function(schID, status, errno)
 {
-  ts3client.logMessage('Connect status changed; new status is: ' + status, 3);
+  ts3client.logMessage('Connect status changed; new status is: ' + status, ts3client.LogLevel.DEBUG);
 
   if(errno)
   {
     var error = ts3client.getErrorMessage(errno);
 
-    ts3client.logMessage('Failed to connect: ' + error, 1);
+    ts3client.logMessage('Failed to connect: ' + error, ts3client.LogLevel.ERROR);
 
     process.exit();
   }
@@ -42,7 +42,7 @@ ts3client.on('onNewChannelEvent', function(schID, channelID, channelPID)
 {
   try
   {
-    var channelName = ts3client.getChannelVariableAsString(schID, channelID, 0);
+    var channelName = ts3client.getChannelVariableAsString(schID, channelID, ts3client.ChannelProperties.NAME);
 
     ts3client.logMessage('Server announced channel "' + channelName + '" (id:' + channelID + ')');
   }
@@ -50,7 +50,7 @@ ts3client.on('onNewChannelEvent', function(schID, channelID, channelPID)
   {
     var error = ts3client.getErrorMessage(errno);
 
-    ts3client.logMessage('Failed to determine channel name: ' + error, 2);
+    ts3client.logMessage('Failed to determine channel name: ' + error, ts3client.LogLevel.WARNING);
   }
 });
 
@@ -62,7 +62,7 @@ ts3client.on('onNewChannelCreatedEvent', function(schID, channelID, channelPID, 
 {
   try
   {
-    var channelName = ts3client.getChannelVariableAsString(schID, channelID, 0);
+    var channelName = ts3client.getChannelVariableAsString(schID, channelID, ts3client.ChannelProperties.NAME);
 
     ts3client.logMessage('Client "' + invokerName + '" (id:' + invokerID + ') created channel "' + channelName + '" (id:' + channelID + ')');
   }
@@ -70,7 +70,7 @@ ts3client.on('onNewChannelCreatedEvent', function(schID, channelID, channelPID, 
   {
     var error = ts3client.getErrorMessage(errno);
 
-    ts3client.logMessage('Failed to determine channel name: ' + error, 2);
+    ts3client.logMessage('Failed to determine channel name: ' + error, ts3client.LogLevel.WARNING);
   }
 });
 
@@ -120,7 +120,7 @@ ts3client.on('onClientMoveSubscriptionEvent', function(schID, clientID, oldChann
 {
   try
   {
-    var clientName  = ts3client.getClientVariableAsString(schID, clientID, 1);
+    var clientName  = ts3client.getClientVariableAsString(schID, clientID, ts3client.ClientProperties.NICKNAME);
 
     ts3client.logMessage('Server announced client "' + clientName + '" (id:' + clientID + ')');
   }
@@ -128,7 +128,7 @@ ts3client.on('onClientMoveSubscriptionEvent', function(schID, clientID, oldChann
   {
     var error = ts3client.getErrorMessage(errno);
 
-    ts3client.logMessage('Failed to determine client name: ' + error, 2);
+    ts3client.logMessage('Failed to determine client name: ' + error, ts3client.LogLevel.WARNING);
   }
 });
 
@@ -138,7 +138,7 @@ ts3client.on('onClientMoveSubscriptionEvent', function(schID, clientID, oldChann
  */
 ts3client.on('onTalkStatusChangeEvent', function(schID, status, isWhisper, clientID)
 {
-  ts3client.logMessage('Client (id:' + clientID + ') ' + (status ? 'started' : 'stopped') + ' talking', 3);
+  ts3client.logMessage('Client (id:' + clientID + ') ' + (status ? 'started' : 'stopped') + ' talking', ts3client.LogLevel.INFO);
 });
 
 /**
@@ -149,7 +149,7 @@ ts3client.on('onServerErrorEvent', function(schID, error, errno, returnCode, ext
 {
   if(errno)
   {
-    ts3client.logMessage('Server returned error: ' + error, 1);
+    ts3client.logMessage('Server returned error: ' + error, ts3client.LogLevel.ERROR);
   }
 });
 
@@ -163,7 +163,7 @@ try
    * Initialize the ClientLib and point the resource path to the platform specific SDK\bin directory to
    * locate the sound backend libraries.
    */
-  ts3client.initClientLib(2, undefined, ts3client.getResourcePath());
+  ts3client.initClientLib(ts3client.LogTypes.CONSOLE, undefined, ts3client.getResourcePath());
 
   /**
    * Spawn a new server connection handler and store its ID. Since we did not specify any port, the OS
