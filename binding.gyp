@@ -66,7 +66,7 @@
         }],
         ["OS==\"mac\"", {
           "libraries": [
-            "<(module_root_dir)/bin/darwin/libts3client.dylib",
+            "<(module_root_dir)/bin/mac/libts3client.dylib",
           ],
           "postbuilds": [{
             "postbuild_name": "Adjust link path to TeamSpeak SDK ClientLib",
@@ -122,7 +122,7 @@
         }],
         ["OS==\"mac\"", {
           "copies": [{
-            "destination": "<(module_root_dir)/bin/darwin/",
+            "destination": "<(module_root_dir)/bin/mac/",
             "files": [
               "<(module_root_dir)/build/Release/ts3client.node"
             ]
