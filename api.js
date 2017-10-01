@@ -4,30 +4,45 @@
  * Copyright (c) Sven Paulsen. All rights reserved.
  */
 
-const os = require("os");
+const os   = require('os');
+const path = require('path');
 
 try
 {
-  module.exports = require("./bin/" + getPlatform() + "/ts3client.node");
+  console.log(getResourcePath());
 
-  module.exports.getPlatform = getPlatform;
+  module.exports = require(getBindingsPath());
+
+  module.exports.getBindingsPath  = getBindingsPath;
+  module.exports.getResourcePath  = getResourcePath;
+  module.exports.getPlatform      = getPlatform;
 }
 catch(err)
 {
   console.log(err);
 }
 
+function getBindingsPath()
+{
+  return path.resolve(path.join(__dirname, './bin/' + getPlatform() + '/ts3client.node'));
+}
+
+function getResourcePath()
+{
+  return path.resolve(path.join(__dirname, './bin/' + getPlatform())) + '/';
+}
+
 function getPlatform()
 {
   switch(os.type())
   {
-    case "Windows_NT":
-      return (os.arch() == "x86" ? "win32" : "win64");
-    case "Linux":
-      return (os.arch() == "x86" ? "linux_x86" : "linux_amd64");
-    case "Darwin":
-      return "darwin";
+    case 'Windows_NT':
+      return (os.arch() == 'x64' ? 'win64' : 'win32');
+    case 'Linux':
+      return (os.arch() == 'x64' ? 'linux_amd64' : 'linux_x86');
+    case 'Darwin':
+      return 'mac';
     default:
-      return "unknown";
+      return 'unknown';
   }
 }
