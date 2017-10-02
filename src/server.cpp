@@ -221,7 +221,7 @@ NAN_METHOD(Server::GetVarAsString)
         return Error::throwException(error);
     }
     
-    if((error = Argument::get(info, 2, &flag, 0)) != ERROR_ok)
+    if((error = Argument::get(info, 1, &flag, 0)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
