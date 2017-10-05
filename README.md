@@ -88,7 +88,9 @@ try
 }
 catch(err)
 {
-  console.log(err.message);
+  var errno = ts3client.getLastError();
+
+  console.log('ERROR ' + errno + ': ' + err.message);
 }
 ```
 
