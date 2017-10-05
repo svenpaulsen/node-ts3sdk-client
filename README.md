@@ -46,9 +46,9 @@ Please refer to the official TeamSpeak 3 SDK [documentation](https://github.com/
 After loading the addon, most TeamSpeak 3 ClientLib features are available in JavaScript. For the sake of convenience the `ts3client_` prefix has been removed from function names and some arguments are optional.
 
 ```javascript
-var ts3client = require('ts3client.node');
+const ts3client = require('node-ts3sdk-client');
 
-ts3client.initClientLib(logLevel, logPath, soundBackendPath);
+ts3client.initClientLib(ts3client.LogTypes.CONSOLE, logPath, soundBackendPath);
 
 var schID = ts3client.spawnNewServerConnectionHandler();
 var ident = ts3client.createIdentity();
@@ -61,6 +61,16 @@ ts3client.startConnection(schID, ident, '127.0.0.1', 9987, 'JohnDoe');
 To register a callback to an event triggered by the TeamSpeak 3 CliebtLib, use the `on` method:
 
 ```javascript
+ts3client.on('onConnectStatusChangeEvent', function(schID, status, errno)
+{
+  // your code
+});
+
+ts3client.on('onTalkStatusChangeEvent', function(schID, status, isWhisper, clientID)
+{
+  // your code
+});
+
 ts3client.on('onClientMoveEvent', function(schID, clientID, oldChannelID, newChannelID, visibility, moveMessage)
 {
   // your code
@@ -74,7 +84,7 @@ When an error occurs, the addon will throw exceptions:
 ```javascript
 try
 {
-  // your code
+  ts3client.openCaptureDevice(schID, undefined, 'some_invalid_capture_device');
 }
 catch(err)
 {
