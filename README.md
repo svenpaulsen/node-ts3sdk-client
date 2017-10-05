@@ -15,10 +15,10 @@ The following prerequisites are necessary prior to using the addon:
 
 ## Installing
 
-The addon and all dependencies can be installed via `npm`:
+All dependencies can be installed via `npm`:
 
 ```sh
-npm install node-ts3sdk-client
+npm install
 ```
 
 This will also build build the module for your current platform. If you want to build the addon manually, issue the following commands in the root directory after cloning the repository:
