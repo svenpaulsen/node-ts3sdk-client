@@ -58,7 +58,7 @@ ts3client.startConnection(schID, ident, '127.0.0.1', 9987, 'JohnDoe');
 
 ### Callbacks
 
-To register a callback to an event triggered by the TeamSpeak 3 CliebtLib, use the `on` method:
+To register a callback to an event triggered by the TeamSpeak 3 ClientLib, use the `on` method:
 
 ```javascript
 ts3client.on('onConnectStatusChangeEvent', function(schID, status, errno)
