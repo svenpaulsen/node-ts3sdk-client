@@ -398,7 +398,7 @@ NAN_METHOD(Channel::SetVarAsInt)
         return Error::throwException(error);
     }
     
-    if((error = ts3client_setChannelVariableAsUInt64(scHandlerID, channelID, flag, variable)) != ERROR_ok)
+    if((error = ts3client_setChannelVariableAsInt(scHandlerID, channelID, flag, variable)) != ERROR_ok)
     {
         return Error::throwException(error);
     }
