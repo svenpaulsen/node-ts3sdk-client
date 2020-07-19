@@ -9,6 +9,7 @@
     "url": "git://github.com/svenpaulsen/node-ts3sdk-client.git"
   },
   "devDependencies": {
-    "nan": "^2.7.0"
+    "nan": "^2.7.0",
+    "node-gyp": "^7.0.0"
   }
 }

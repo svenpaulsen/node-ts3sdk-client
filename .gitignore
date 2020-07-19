@@ -1,6 +1,5 @@
 .DS_Store
 /build
 /build.sh
-/package-lock.json
 /node_modules
 ts3client.node

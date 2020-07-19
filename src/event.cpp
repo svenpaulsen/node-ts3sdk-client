@@ -42,7 +42,7 @@ void Event::exec(uv_async_t* handle, int status)
         Nan::HandleScope scope;
         Nan::TryCatch    trycatch;
         
-        std::vector<v8::Handle<v8::Value>> args;
+        std::vector<v8::Local<v8::Value>> args;
         
         for(unsigned int i = 0; i < p->getLength(); ++i)
         {
@@ -81,8 +81,9 @@ void Event::exec(uv_async_t* handle, int status)
             }
         }
         
-        func->second->Call(p->getLength(), args.data());
-        
+        Nan::AsyncResource asyncResource("node-ts3sdk-client.callback");
+        func->second->Call(p->getLength(), args.data(), &asyncResource);
+
         if(trycatch.HasCaught())
         {
             Nan::FatalException(trycatch);
@@ -122,7 +123,7 @@ NAN_METHOD(Event::On)
     
     Nan::Callback* callback = new Nan::Callback(v8::Local<v8::Function>::Cast(info[1]));
     
-    m_pool[std::string(*Nan::Utf8String(info[0]->ToString()))] = callback;
+    m_pool[std::string(*Nan::Utf8String(info[0]))] = callback;
 }
 
 /**

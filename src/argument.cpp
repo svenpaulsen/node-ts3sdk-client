@@ -41,7 +41,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_undefined;
     }
     
-    *res = info[arg]->IsUndefined() ? def : (anyID) info[arg]->Int32Value();
+    *res = info[arg]->IsUndefined() ? def : (anyID) info[arg]->Int32Value(Nan::GetCurrentContext()).FromJust();
     
     return ERROR_ok;
 }
@@ -60,7 +60,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_undefined;
     }
     
-    *res = static_cast<uint64>(info[arg]->IsUndefined() ? def : info[arg]->NumberValue());
+    *res = static_cast<uint64>(info[arg]->IsUndefined() ? def : info[arg]->NumberValue(Nan::GetCurrentContext()).FromJust());
     
     return ERROR_ok;
 }
@@ -79,7 +79,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_undefined;
     }
     
-    *res = info[arg]->IsUndefined() ? def : info[arg]->Uint32Value();
+    *res = info[arg]->IsUndefined() ? def : info[arg]->Uint32Value(Nan::GetCurrentContext()).FromJust();
     
     return ERROR_ok;
 }
@@ -98,7 +98,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_undefined;
     }
     
-    *res = info[arg]->IsUndefined() ? def : info[arg]->Int32Value();
+    *res = info[arg]->IsUndefined() ? def : info[arg]->Int32Value(Nan::GetCurrentContext()).FromJust();
     
     return ERROR_ok;
 }
@@ -117,7 +117,7 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_undefined;
     }
     
-    *res = info[arg]->IsUndefined() ? def : (float) info[arg]->NumberValue();
+    *res = info[arg]->IsUndefined() ? def : (float) info[arg]->NumberValue(Nan::GetCurrentContext()).FromJust();
     
     return ERROR_ok;
 }
@@ -167,11 +167,11 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_parameter_invalid;
     }
     
-    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[arg]);
     
     for(unsigned int i = 0; i < arr->Length(); i++)
     {
-        res.push_back(static_cast<anyID>(info[arg]->Uint32Value()));
+        res.push_back(static_cast<anyID>(info[arg]->Uint32Value(Nan::GetCurrentContext()).FromJust()));
     }
     
     if(res.empty() && def != 0)
@@ -197,11 +197,11 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_parameter_invalid;
     }
     
-    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[arg]);
     
     for(unsigned int i = 0; i < arr->Length(); i++)
     {
-        res.push_back(static_cast<uint64>(info[arg]->NumberValue()));
+        res.push_back(static_cast<uint64>(info[arg]->NumberValue(Nan::GetCurrentContext()).FromJust()));
     }
     
     if(res.empty() && def != 0)
@@ -227,11 +227,11 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_parameter_invalid;
     }
     
-    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[arg]);
     
     for(unsigned int i = 0; i < arr->Length(); i++)
     {
-        res.push_back(static_cast<unsigned int>(info[arg]->Uint32Value()));
+        res.push_back(static_cast<unsigned int>(info[arg]->Uint32Value(Nan::GetCurrentContext()).FromJust()));
     }
     
     if(res.empty() && def != 0)
@@ -257,12 +257,12 @@ unsigned int Argument::get(const Nan::FunctionCallbackInfo<v8::Value> &info, int
         return ERROR_parameter_invalid;
     }
     
-    v8::Handle<v8::Array> arr = v8::Handle<v8::Array>::Cast(info[arg]);
+    v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[arg]);
     
     for(unsigned int i = 0; i < arr->Length(); i++)
     {
         char* str = (char*) malloc(Nan::Utf8String(info[arg]).length()+1);
-        strcpy(str, *Nan::Utf8String(arr->Get(i)));
+        strcpy(str, *Nan::Utf8String(Nan::Get(arr, i).ToLocalChecked()));
         res.push_back(str);
     }
     
