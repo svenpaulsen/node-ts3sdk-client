@@ -274,6 +274,7 @@ NAN_METHOD(Server::SendMessage)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(message);
     free(returnCode);
     free(defretCode);
 }

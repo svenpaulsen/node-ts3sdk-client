@@ -123,7 +123,13 @@ NAN_METHOD(Connection::Start)
     {
         return Error::throwException(error);
     }
-    
+
+    freeMemory(identity);
+    freeMemory(host);
+    freeMemory(nickname);
+    freeMemory(channelPwd);
+    freeMemory(serverPwd);
+
     for(int i = 0; i < (int) channelArr.size(); ++i)
     {
         free(channelArr[i]);
@@ -196,6 +202,12 @@ NAN_METHOD(Connection::StartWithChannelID)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(identity);
+    freeMemory(host);
+    freeMemory(nickname);
+    freeMemory(channelPwd);
+    freeMemory(serverPwd);
 }
 
 /**
@@ -226,6 +238,8 @@ NAN_METHOD(Connection::Stop)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(quitMessage);
 }
 
 /**
