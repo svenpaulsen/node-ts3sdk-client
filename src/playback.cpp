@@ -55,6 +55,8 @@ NAN_METHOD(Playback::OpenDevice)
         return Error::throwException(error);
     }
     
+    freeMemory(mode);
+    freeMemory(device);
     ts3client_freeMemory(modeDefault);
     ts3client_freeMemory(deviceDefault);
 }
@@ -135,6 +137,8 @@ NAN_METHOD(Playback::PlayWaveFile)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(path);
 }
 
 /**
@@ -199,6 +203,7 @@ NAN_METHOD(Playback::ListDevices)
     
     info.GetReturnValue().Set(arr);
     
+    freeMemory(mode);
     ts3client_freeMemory(modeDefault);
     ts3client_freeMemory(deviceDefault);
     ts3client_freeMemory(devices);
@@ -330,6 +335,8 @@ NAN_METHOD(Playback::GetConfigValue)
     }
     
     info.GetReturnValue().Set(Nan::New<v8::Number>(val));
+
+    freeMemory(key);
 }
 
 /**
@@ -366,4 +373,7 @@ NAN_METHOD(Playback::SetConfigValue)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(key);
+    freeMemory(val);
 }

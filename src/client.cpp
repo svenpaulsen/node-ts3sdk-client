@@ -174,6 +174,8 @@ NAN_METHOD(Client::SetOwnVarAsString)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(variable);
 }
 
 /**
@@ -254,6 +256,7 @@ NAN_METHOD(Client::GetClones)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(clientUID);
     free(returnCode);
     free(defretCode);
 }
@@ -664,6 +667,7 @@ NAN_METHOD(Client::Move)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(password);
     free(returnCode);
     free(defretCode);
 }
@@ -712,6 +716,7 @@ NAN_METHOD(Client::KickFromChannel)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(reason);
     free(returnCode);
     free(defretCode);
 }
@@ -760,6 +765,7 @@ NAN_METHOD(Client::KickFromServer)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(reason);
     free(returnCode);
     free(defretCode);
 }
@@ -808,6 +814,7 @@ NAN_METHOD(Client::SendMessage)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(message);
     free(returnCode);
     free(defretCode);
 }

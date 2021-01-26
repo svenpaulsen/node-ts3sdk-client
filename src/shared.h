@@ -23,4 +23,6 @@
 
 extern struct ClientUIFunctions clientSDK;
 
+void freeMemory(void* ptr);
+
 #endif // ADDON_SHARED_H

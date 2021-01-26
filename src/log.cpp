@@ -48,6 +48,9 @@ NAN_METHOD(Log::AddMessage)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(logMessage);
+    freeMemory(logChannel);
 }
 
 /**

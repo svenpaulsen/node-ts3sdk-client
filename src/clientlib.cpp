@@ -85,6 +85,9 @@ NAN_METHOD(ClientLib::Init)
     {
         return Error::throwException(error);
     }
+
+    freeMemory(logPath);
+    freeMemory(resPath);
 }
 
 /**

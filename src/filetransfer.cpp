@@ -83,6 +83,9 @@ NAN_METHOD(FileTransfer::InitUpload)
     
     info.GetReturnValue().Set(ret);
     
+    freeMemory(channelPW);
+    freeMemory(file);
+    freeMemory(srcDir);
     free(returnCode);
     free(defretCode);
 }
@@ -161,6 +164,9 @@ NAN_METHOD(FileTransfer::InitDownload)
     
     info.GetReturnValue().Set(ret);
     
+    freeMemory(channelPW);
+    freeMemory(file);
+    freeMemory(dstDir);
     free(returnCode);
     free(defretCode);
 }
@@ -263,6 +269,8 @@ NAN_METHOD(FileTransfer::GetFileList)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(channelPW);
+    freeMemory(path);
     free(returnCode);
     free(defretCode);
 }
@@ -317,6 +325,8 @@ NAN_METHOD(FileTransfer::GetFileInfo)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(channelPW);
+    freeMemory(file);
     free(returnCode);
     free(defretCode);
 }
@@ -371,6 +381,11 @@ NAN_METHOD(FileTransfer::DeleteFile)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(channelPW);
+    for(int i = 0; i < (int) files.size(); ++i)
+    {
+        free(files[i]);
+    }
     free(returnCode);
     free(defretCode);
 }
@@ -443,6 +458,10 @@ NAN_METHOD(FileTransfer::RenameFile)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(frChannelPW);
+    freeMemory(toChannelPW);
+    freeMemory(frFile);
+    freeMemory(toFile);
     free(returnCode);
     free(defretCode);
 }
@@ -497,6 +516,8 @@ NAN_METHOD(FileTransfer::CreateDirectory)
     
     info.GetReturnValue().Set(Nan::New(returnCode).ToLocalChecked());
     
+    freeMemory(channelPW);
+    freeMemory(path);
     free(returnCode);
     free(defretCode);
 }

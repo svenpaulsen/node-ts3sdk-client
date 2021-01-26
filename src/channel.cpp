@@ -487,7 +487,7 @@ NAN_METHOD(Channel::SetVarAsString)
         return Error::throwException(error);
     }
     
-    ts3client_freeMemory(variable);
+    freeMemory(variable);
 }
 
 /**

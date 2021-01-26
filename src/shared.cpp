@@ -7,3 +7,9 @@
 #include "shared.h"
 
 struct ClientUIFunctions clientSDK;
+
+void freeMemory(void* ptr)
+{
+    if (ptr != nullptr)
+        free(ptr);
+}

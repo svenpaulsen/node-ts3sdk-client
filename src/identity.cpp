@@ -57,5 +57,6 @@ NAN_METHOD(Identity::GetUID)
     
     info.GetReturnValue().Set(Nan::New(uid).ToLocalChecked());
     
+    freeMemory(identity);
     ts3client_freeMemory(uid);
 }
